@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SMART-EIA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/flat-ui.css" rel="stylesheet">
+  <link href="../css/re-lo.css" rel="stylesheet">
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/flat-ui.min.js"></script>
+  <script src="../js/jquery.particleground.min.js"></script>
+
+</head>
+
+<body class="register-body">
+  <div id="particles">
+  </div>
+  <!--注册框-->
+  <div class="register-container">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <h1 class="text-center">Smart-EIA</h1>
+        <h5 class="text-center">智能环评生成器</h5>
+      </div>
+    </div>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <!--公司名称-->
+        <div class="col-sm-12">
+          <input type="text" name="companyName" class="form-control" id="reg_companyName_input" placeholder="公司名称">
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <!--真实姓名-->
+        <div class="col-sm-12">
+          <input type="text" name="userName" class="form-control" id="reg_userName_input" placeholder="真实姓名">
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <!--手机号-->
+        <div class="col-sm-12">
+          <input type="text" name="tel" class="form-control" id="reg_tel_input" placeholder="手机号，中国11位号码">
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <!--邮箱-->
+        <div class="col-sm-12">
+          <input type="email" name="email" class="form-control" id="reg_email_input" placeholder="Email，建议企业邮箱">
+          <span class="help-block"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <!--密码-->
+        <div class="col-sm-12">
+          <input type="password" name="password" class="form-control" id="reg_password_input" placeholder="密码，请输入6-16位数字，字母，下划线的组合">
+          <span class="help-block"></span>
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-block btn-lg btn-primary" id="register_btn">立即注册</button>
+    <a href="###">已注册账户？点击登陆-&gt;</a>
+  </div>
+  <!--注册框-->
+
+</body>
+<script>
+//  $('#particles').particleground();
+  //可以根据下面表格中参数说明设定相应参数
+  $('#particles').particleground({
+    dotColor: 'rgb(195, 242, 195)',
+    lineColor: 'rgb(195, 242, 195)'
+  });
+</script>
+
+
+
+
+
+</html>

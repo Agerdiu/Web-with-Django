@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SMART-EIA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/flat-ui.css" rel="stylesheet">
+  <link href="../css/re-lo.css" rel="stylesheet">
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/flat-ui.min.js"></script>
+  <script src="../js/jquery.particleground.min.js"></script>
+</head>
+
+<body class="login-body">
+  <div id="particles">
+  </div>
+  <!--登陆框-->
+  <div class="login-container">
+    <div class="form-group">
+      <div class="col-sm-12">
+        <h1 class="text-center">Smart-EIA</h1>
+        <h5 class="text-center">智能环评生成器</h5>
+      </div>
+    </div>
+    <form class="form-horizontal">
+            <div class="form-group">
+                <!--邮箱-->
+                <div class="col-sm-12">
+                    <input type="text" name="id" class="form-control" id="login_email_input" placeholder="Email">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                  <!--密码-->
+                <div class="col-sm-12">
+                    <input type="password" name="password" class="form-control" id="login_password_input" placeholder="Password">
+                    <span class="help-block"></span>
+                </div>
+            </div>
+        </form>
+    <button class="btn btn-block btn-lg btn-success" id="login_btn">登陆</button>
+    <a href="###" class="btn btn-block btn-lg btn-primary">马上注册</a>
+  </div>
+  <!--登陆框-->
+
+</body>
+<script>
+//  $('#particles').particleground();
+  //可以根据下面表格中参数说明设定相应参数
+  $('#particles').particleground({
+    dotColor: 'rgb(195, 242, 195)',
+    lineColor: 'rgb(195, 242, 195)'
+  });
+</script>
+
+
+
+
+
+</html>
