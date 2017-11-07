@@ -1,0 +1,173 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SMART-EIA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0">
+  <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
+  <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
+  <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
+  <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=0aa77d35b160a4d001f3aa2ac15d1464&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+  <style>
+    .good {
+      color: rgb(200, 69, 151)!important;
+    }
+  </style>
+</head>
+
+<body>
+  <!--导航栏-->
+  <header class="navbar navbar-static-top bs-docs-nav" id="top">
+    <div class="container">
+      <!--导航栏响应式设置-->
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+   </button>
+        <a href="##" class="navbar-brand">SMART-EIA</a>
+      </div>
+      <!--导航栏响应式设置-->
+      <nav id="bs-navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="##">首页</a>
+          </li>
+          <li class="active">
+            <a href="##">表单页</a>
+          </li>
+          <li>
+            <a href="##">流程指南</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="##" target="_blank">智能环评管家</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!--导航栏-->
+  <!--巨幕-->
+  <div>
+    <div class="container">
+      <h1>智能环评管家</h1>
+      <p>提供环评、验收与应急预案一站式智能编写服务</p>
+    </div>
+  </div>
+  <!--巨幕-->
+  <div class="container">
+    <div class="col-md-12">
+      <h4 class="page-header">GIS信息填写</h4>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#map_div" onclick="javascript:toolBar.doLocation();"> <span class="fui-location"></span>获取地理位置</button>
+      <!--地图-->
+      <div class="collapse" id="map_div">
+        <div class="well">
+          <div id="mapContainer" style="width:100%;height:200px;"></div>
+          <div id="tip">
+          </div>
+          <button class="btn btn-primary" type="button" onclick="javascript:toolBar.doLocation()"> <span class="fui-location"></span>重新定位</button>
+            <input type="text" id="tipinput" placeholder="请输入搜索的地点" style="border: 2px solid #bdc3c7;border-radius: 6px;"/>
+        </div>
+        <!--地图-->
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  //自定义定位标记
+  var toolBar;
+  var customMarker = new AMap.Marker({
+    offset: new AMap.Pixel(-14, -34), //相对于基点的位置
+    icon: new AMap.Icon({ //复杂图标
+      size: new AMap.Size(27, 36), //图标大小
+      image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
+      imageOffset: new AMap.Pixel(-28, 0) //相对于大图的取图位置
+    })
+  });
+
+  //初始化地图对象，加载地图
+  var map = new AMap.Map('mapContainer', {
+    resizeEnable: true,
+    zoom: 16
+  });
+
+  //地图中添加地图操作ToolBar插件
+  map.plugin(["AMap.ToolBar"], function() {
+    toolBar = new AMap.ToolBar({
+      locationMarker: customMarker
+    }); //设置地位标记为自定义标记
+    map.addControl(toolBar);
+  });
+
+  AMap.event.addListener(toolBar, 'location', onComplete); //定位成功触发事件
+
+  //解析定位结果
+  var count = 0,
+    clickListener;
+
+  function onComplete() {
+    if (!clickListener) {
+      clickListener = AMap.event.addListener(map, "click", _onClick); //绑定地图事件
+    }
+
+    var str = ['定位成功'];
+    var data = toolBar.getLocation();
+
+    str.push('经度：' + data.getLng());
+    str.push('纬度：' + data.getLat());
+    document.getElementById('tip').innerHTML = str.join('<br>');
+  }
+
+  var _onClick = function(e) {
+    customMarker.setPosition(e.lnglat);
+
+    var str = ['定位成功'];
+    str.push('经度：' + e.lnglat.getLng());
+    str.push('纬度：' + e.lnglat.getLat());
+    document.getElementById('tip').innerHTML = str.join('<br>');
+
+  }
+
+
+  //解析定位错误信息
+  function onError(data) {
+    document.getElementById('tip').innerHTML = '定位失败';
+  }
+
+  //输入提示
+  var autoOptions = {
+    input: "tipinput"
+  };
+  var auto = new AMap.Autocomplete(autoOptions);
+  var placeSearch = new AMap.PlaceSearch({
+    map: map
+  }); //构造地点查询类
+  AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+  function select(e) {
+    placeSearch.setCity(e.poi.adcode);
+    placeSearch.search(e.poi.name); //关键字查询查询
+  }
+  //输入提示
+  var autoOptions = {
+    input: "tipinput"
+  };
+  var auto = new AMap.Autocomplete(autoOptions);
+  var placeSearch = new AMap.PlaceSearch({
+    map: map
+  }); //构造地点查询类
+  AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+  function select(e) {
+    placeSearch.setCity(e.poi.adcode);
+    placeSearch.search(e.poi.name); //关键字查询查询
+  }
+</script>
+
+</html>

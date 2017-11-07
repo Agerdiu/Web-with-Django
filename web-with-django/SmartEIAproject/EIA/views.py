@@ -1,3 +1,17 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    return render(request, 'EIA/index.html', context={
+        'title': 'index',
+        'welcome': 'welcome to index'
+    })
+
+
+def login(request):
+    return render(request, 'EIA/login.html', context={})
+
+
+def register(request):
+    return render(request, 'EIA/register.html', context={})
