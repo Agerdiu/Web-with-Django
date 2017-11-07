@@ -12,7 +12,7 @@ File Encoding         : 65001
 
 Date: 2017-11-01 13:14:24
 */
-
+USE myschema;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -56,3 +56,5 @@ CREATE TABLE `enterprise_data` (
   PRIMARY KEY (`corporate_id`),
   CONSTRAINT `enterprise_data_ibfk_1` FOREIGN KEY (`corporate_id`) REFERENCES `userdata` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
