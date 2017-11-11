@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>表单填写</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
+    <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
+    <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+    <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-lg" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">表单填写页</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-5">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">123456<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">读取本地表格</a></li>
+            <li><a href="#">读取现场考察表单</a></li>
+            <li class="divider"></li>
+            <li><a href="#">退出登录</a></li>
+            <li><a href="#">返回首页</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="visible-sm visible-xs">Settings<span class="fui-gear"></span></span><span class="visible-md visible-lg"><span class="fui-gear"></span></span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+  <div class="row" style="height:90%">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      <form action="/form-post/" method="POST">
+          {% csrf_token %}
+        <tr>
+          <td colspan="2" style="text-align: center">建设单位名称</td>
+          <td colspan="2">
+            <input type="text"class="form-control input" name="enterpriseName" placeholder="单位名称">
+          </td>
+        </tr>
+        <tr>
+          <td>法人代表</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="corporateName" placeholder="姓名">
+          </td>
+          <td>法人身份证号</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="corporateId" placeholder="身份证号码">
+          </td>
+        </tr>
+        <tr>
+          <td>联系人</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="contacts" placeholder="姓名">
+          </td>
+          <td>联系电话</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="telephone" placeholder="电话">
+          </td>
+        </tr>
+        <tr>
+          <td>日工作时间</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="dayWorkTime" placeholder="日工作时间">
+          </td>
+          <td>年工作时间</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="yearWorkTime" placeholder="年工作时间">
+          </td>
+        </tr>
+          <input type="submit" value="提交" class="btn btn-block btn-lg btn-primary"/>
+    </form>
+        <p>{{ rlt }}</p>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <div style="text-align: center">
+    <ul class="pagination center-block">
+      <li class="previous"><a href="#fakelink" class="fui-arrow-left"></a></li>
+      <li class="active"><a href="#fakelink">1</a></li>
+      <li><a href="#fakelink">2</a></li>
+      <li><a href="#fakelink">3</a></li>
+      <li><a href="#fakelink">4</a></li>
+      <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
+    </ul>
+  </div>
+  </body>
+  <script>
+    $('#particles').particleground({
+      dotColor: '#59d217',
+      lineColor: '#59d217'
+    });
+    $('#particles2').particleground({
+      dotColor: '#59d217',
+      lineColor: '#59d217'
+    });
+    $('#particles3').particleground({
+      dotColor: '#59d217',
+      lineColor:'#59d217'
+    });
+    $('#particles4').particleground({
+      dotColor: '#59d217',
+      lineColor:'#59d217'
+    });
+  </script>
+</html>

@@ -15,3 +15,6 @@ def login(request):
 
 def register(request):
     return render(request, 'EIA/register.html', context={})
+
+def table(request):
+    return render(request, 'EIA/table.html', context={})
