@@ -73,10 +73,34 @@ class Product(models.Model):
     productsName = models.CharField(max_length=50, null=True)  # 产品名称 default null
     num = models.BigIntegerField(null=True)  # 数量 default null
     unit = models.CharField(max_length=20, null=True)  # 单位 not null
-
+    remark = models.CharField(max_length=50, null=True)  # 备注 default null
     def __str__(self):
         return self.productsName
 
 
 
+class Materials(models.Model):
+    materialId = models.AutoField(primary_key=True)  # Field name made lowercase.
+    materialName = models.CharField(max_length=50)  #Field name made lowercase.
+    num = models.FloatField(null=True)
+    unit = models.CharField(max_length=20, null=True)
+    isOffcut = models.CharField(max_length=5,null=True)  # Field name made lowercase.
+    state = models.CharField(max_length=10,null=True)
+    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
+    def __str__(self):
+        return self.materialName
 
+
+
+class Equipments(models.Model):
+    equipId = models.AutoField(primary_key=True)  # Field name made lowercase.
+    equipName = models.CharField( max_length=50)  # Fieldname made lowercase.
+    num = models.IntegerField(null=True)
+    unit = models.CharField(max_length=50, null=True)
+    remark = models.CharField(max_length=255,null=True)
+    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
+    def __str__(self):
+        return self.equipName
+    class Meta:
+        managed = False
+        db_table = 'eia_equipments'

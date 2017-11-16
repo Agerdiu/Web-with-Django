@@ -80,3 +80,6 @@ def gis(request):
 
 def table(request):
     return render(request, 'EIA/table.html', context={})
+
+def products(request):
+    return render(request, 'EIA/products.html', context={})

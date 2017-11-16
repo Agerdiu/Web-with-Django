@@ -1,0 +1,186 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>表单填写</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
+    <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
+    <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+    <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-lg" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">表单填写页</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-5">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">123456<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">读取本地表格</a></li>
+            <li><a href="#">读取现场考察表单</a></li>
+            <li class="divider"></li>
+            <li><a href="#">退出登录</a></li>
+            <li><a href="#">返回首页</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="visible-sm visible-xs">Settings<span class="fui-gear"></span></span><span class="visible-md visible-lg"><span class="fui-gear"></span></span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+  <div class="row" style="height:90%">
+      <div class="col-md-2">
+      </div>
+    <div class="col-md-8">
+        <form action="/products_submit/" method="POST">
+          {% csrf_token %}
+    <table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>产品名称</th>
+        <th>数量</th>
+        <th>单位</th>
+        <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pName1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pNum1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pUnit1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pRemark1" placeholder="">
+        </td>
+    </tr>
+    <tr>
+        <td>02</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pName2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pNum2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pUnit2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="pRemark2" placeholder="">
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>材料名称</th>
+        <th>数量</th>
+        <th>单位</th>
+        <th>是否为边角料</th>
+        <th>材料状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MName1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MNum1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MUnit1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="Moffcut1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="Mstate1" placeholder="">
+        </td>
+    </tr>
+    <tr>
+        <td>02</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MName2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MNum2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="MUnit2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="Moffcut2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="Mstate2" placeholder="">
+        </td>
+    </tr>
+    </tbody>
+    </table>
+   <table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>设备名称</th>
+        <th>数量</th>
+        <th>单位</th>
+        <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="EName1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="ENum1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="EUnit1" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="ERemark1" placeholder="">
+        </td>
+    </tr>
+    <tr>
+        <td>02</td>
+        <td>
+            <input type="text"class="form-control input-sm" name="EName2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="ENum2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="EUnit2" placeholder="">
+        </td>
+        <td>
+            <input type="text"class="form-control input-sm" name="ERemark2" placeholder="">
+        </td>
+    </tr>
+    </tbody>
+</table>
+            <input type="submit" value="提交" class="btn btn-block btn-lg btn-primary"/>
+        </form>
+    </div>
+  </div>
+  </body>
+</html>

@@ -7,8 +7,6 @@ import xlwings as xw
 import MySQLdb
 db = MySQLdb.connect(host="localhost", user="root", passwd="", db="EIA",charset = "utf8")
 c = db.cursor()
-def index(request):
-    return render(request, 'table.html')
 def form_post(request):
     pythoncom.CoInitialize()
     if request.POST:
@@ -42,5 +40,4 @@ def create_sqls(formdict):
     str += substr1 + ' ' + 'VALUES ' + substr2
     print(str)
     return str
-
 

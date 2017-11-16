@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import form_getting
+from . import products_dealing
 from . import views
 
 urlpatterns = [
@@ -8,5 +9,7 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^gis/$', views.gis, name='gis'),
     url(r'^form-post/$', form_getting.form_post),
-    url(r'^table/$', views.table, name='index'),
+    url(r'^products_submit/$', products_dealing.products_submit),
+    url(r'^table/$', views.table, name='table'),
+    url(r'^products/$', views.products, name='products'),
 ]
