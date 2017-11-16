@@ -1,13 +1,29 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
 
-# from django.contrib.auth.models import User
+class User(AbstractUser):
+    manager = models.ForeignKey('self', null=True)
+    is_manager = models.BooleanField(default=False)
+    telephone = models.CharField(max_length=15, null=True)
+    environmentAssessmentCompany = models.CharField(max_length=255, null=True)  # 环评公司名称 default null
 
-
+'''
+class Manager(models.Model):
+    managerId = models.AutoField(primary_key=True)  # 经理id primary_key
+    userId = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # 用户id foreign_key 一对一
+'''
+'''
+class Worker(models.Model):
+    workerId = models.AutoField(primary_key=True)  # 员工id primary_key
+    userId = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # 用户id foreign_key 一对一
+    managerId = models.ForeignKey(Manager, on_delete=models.CASCADE)  # 经理id foreign_key 多对一
+'''
 
 class Enterprise(models.Model):
-    enterpriseId = models.IntegerField(primary_key=True)  # 公司id primary_key
+    enterpriseId = models.AutoField(primary_key=True)  # 公司id primary_key
+    workerId = models.ForeignKey('User', on_delete=models.CASCADE)  # 管理员工id foreign_key 多对一
     NEIType = models.CharField(max_length=255, null=True)  # 国民经济行业类别及代码 default null
     nameAbbreviation = models.CharField(max_length=255, null=True)  # 名称缩写 default null
     enterpriseName = models.CharField(max_length=255, null=True)  # 公司名称 default null
@@ -20,12 +36,11 @@ class Enterprise(models.Model):
     address = models.CharField(max_length=20, null=True)  # 地址 default null
     totalInvestment = models.IntegerField(null=True)  # 项目总投资（万元） default null
     environmentalProtectionInvestment = models.IntegerField(null=True)  # 环保投资（万元） default null
-    environmentalProtectionInvestmentProtection = models.FloatField(null=True)  # 环保投资占比 default null
+    environmentalProtectionInvestmentProportion = models.FloatField(null=True)  # 环保投资占比 default null
     floorSpace = models.IntegerField(null=True)  # 占地面积（m2) default null
     managementSpace = models.IntegerField(null=True)  # 经营面积(m2) default null
     nonAccommodationNum = models.IntegerField(null=True)  # 职工非住宿人数 default null
     accommodationNum = models.IntegerField(null=True)  # 职工住宿人数 default null
-    stuffNum = models.IntegerField(null=True)  # 职工总人数 default null
     dayWorkTime = models.IntegerField(null=True)  # 日工作时间 default null
     yearWorkTime = models.IntegerField(null=True)  # 年工作时间 default null
     investmentTime = models.IntegerField(null=True)  # 投资时间(年) default null
@@ -37,18 +52,23 @@ class Enterprise(models.Model):
     annualPowerConsumption = models.FloatField(null=True)  # 电年耗量(万kwh/a) default null
     latitude = models.FloatField(null=True)  # 纬度 default null
     longtitude = models.FloatField(null=True)  # 经度 default null
-    east = models.FloatField(null=True)  # 东 default null
-    south = models.FloatField(null=True)  # 南 default null
-    west = models.FloatField(null=True)  # 西 default null
-    north = models.FloatField(null=True)  # 北 default null
+    east = models.CharField(max_length=50, null=True)  # 东 default null
+    south = models.CharField(max_length=50, null=True)  # 南 default null
+    west = models.CharField(max_length=50, null=True)  # 西 default null
+    north = models.CharField(max_length=50, null=True)  # 北 default null
     township = models.CharField(max_length=50, null=True)  # 所在区镇 default null
-
-    def __str__(self):
+    soundEnvironmentStandard = models.CharField(max_length=5, null=True) # 声环境质量标准 default null
+    groundwaterArea = models.CharField(max_length=50, null=True)  # 地下水区域 default null
+    specialOptionforDaliang = models.CharField(max_length=5, null=True)  # 大良特别选项 default null
+    besideWaterTreatmentPlant = models.CharField(max_length=5, null=True)  # 是否污水处理厂纳污范围 default null
+    sensitivePointDistance = models.CharField(max_length=5, null=True) # 敏感点距离 default null
+    waterSourceDistance = models.CharField(max_length=5, null=True) # 水源保护地距离 default null
+def __str__(self):
         return self.enterpriseName
 
 
-class Products(models.Model):
-    productsId = models.IntegerField(primary_key=True)  # 产品id primary_key
+class Product(models.Model):
+    productsId = models.AutoField(primary_key=True)  # 产品id primary_key
     enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # 公司id foreign_key 多对一
     productsName = models.CharField(max_length=50, null=True)  # 产品名称 default null
     num = models.BigIntegerField(null=True)  # 数量 default null
@@ -58,7 +78,5 @@ class Products(models.Model):
         return self.productsName
 
 
-class User(AbstractUser):
-    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # 公司id foreign_key 多对一
-    REQUIRED_FIELDS = ['email', 'enterpriseId']
-    # others inherited from AbstractUser
+
+

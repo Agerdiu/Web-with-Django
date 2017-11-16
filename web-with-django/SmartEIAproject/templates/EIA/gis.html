@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GIS Form</title>
+
+</head>
+<body>
+<h1>GIS Form</h1>
+<form method='post'>
+{% csrf_token %}
+{{form}}
+<input type="submit" value="提交">
+</form>
+</body>
+</html>

@@ -13,6 +13,7 @@
   <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
   <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
   <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+  <script src="{% static 'EIA/js/application.js' %}"></script>\
   <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
 </head>
 
@@ -27,25 +28,26 @@
         <h5 class="text-center">智能环评生成器</h5>
       </div>
     </div>
-    <form class="form-horizontal">
-      <div class="form-group">
+    <form class="form-horizontal" id="register_form" action="/register/" method="post">
+         {% csrf_token %}
+        <div class="form-group">
         <!--公司名称-->
         <div class="col-sm-12">
-          <input type="text" name="companyName" class="form-control" id="reg_companyName_input" placeholder="公司名称">
+          <input type="text" name="environmentAssessmentCompany" class="form-control" id="reg_environmentAssessmentCompany_input" placeholder="公司名称">
           <span class="help-block"></span>
         </div>
       </div>
       <div class="form-group">
         <!--真实姓名-->
         <div class="col-sm-12">
-          <input type="text" name="userName" class="form-control" id="reg_userName_input" placeholder="真实姓名">
+          <input type="text" name="first_name" class="form-control" id="reg_Name_input" placeholder="真实姓名">
           <span class="help-block"></span>
         </div>
       </div>
       <div class="form-group">
         <!--手机号-->
         <div class="col-sm-12">
-          <input type="text" name="tel" class="form-control" id="reg_tel_input" placeholder="手机号，中国11位号码">
+          <input type="text" name="telephone" class="form-control" id="reg_tel_input" placeholder="手机号，中国11位号码">
           <span class="help-block"></span>
         </div>
       </div>
@@ -63,6 +65,15 @@
           <span class="help-block"></span>
         </div>
       </div>
+       <label class="radio" style="float:left">
+            <input type="radio" name="is_manager" id="is_manager1" value="False" data-toggle="radio"checked="">
+            员工
+       </label>
+        <label class="radio" style="float:left; margin-left:10px;margin-top:0">
+            <input type="radio" name="is_manager" id="is_manager2" value="True" data-toggle="radio" >
+            管理者
+        </label>
+         <div style="margin: auto; color:red ;text-align:center">{{ error }}</div>
     </form>
     <button class="btn btn-block btn-lg btn-primary" id="register_btn">立即注册</button>
     <a href="###">已注册账户？点击登陆-&gt;</a>
@@ -82,5 +93,5 @@
 
 
 
-
+    <script src="{% static 'EIA/js/register.js' %}"></script>
 </html>

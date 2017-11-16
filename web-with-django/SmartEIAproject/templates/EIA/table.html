@@ -1,0 +1,370 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>表单填写</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
+    <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
+    <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+    <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-lg" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">表单填写页</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-5">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">123456<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">读取本地表格</a></li>
+            <li><a href="#">读取现场考察表单</a></li>
+            <li class="divider"></li>
+            <li><a href="#">退出登录</a></li>
+            <li><a href="#">返回首页</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="visible-sm visible-xs">Settings<span class="fui-gear"></span></span><span class="visible-md visible-lg"><span class="fui-gear"></span></span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+  <div class="row" style="height:90%">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      <form action="/form-post/" method="POST">
+          {% csrf_token %}
+          <td colspan="2" style="text-align: center">建设单位名称</td>
+          <td colspan="2">
+            <input type="text"class="form-control input" name="enterpriseName" placeholder="单位名称">
+          </td>
+          <td>名称缩写</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="nameAbbreviation" placeholder="缩写">
+          </td>
+          <td>国民经济类别</td>
+          <td>
+            <select class="form-control input-sm" name="NEIType">
+                    <option>07930 洗染服务</option>
+                    <option>C1391 淀粉及淀粉制品制造 </option>
+                    <option>C14 食品制造业</option>
+                    <option>C1421  糖果、巧克力制造</option>
+                    <option>C17 纺织业</option>
+                    <option>C1789 篷、帆布制造</option>
+                    <option>C181 纺织服装制造业</option>
+                    <option>C20 木材加工和木、竹、藤、棕、草制品业</option>
+                    <option>C2011 锯材加工</option>
+                    <option>C2013 单板加工</option>
+                    <option>C21 家具制造业</option>
+                    <option>C22 造纸和纸制品业</option>
+                    <option>C2231 纸和纸板容器制造</option>
+                    <option>C23 印刷和记录媒介复制业</option>
+                    <option>C231 印刷</option>
+                    <option>C2319 包装装潢及其他印刷</option>
+                    <option>C24 文教、工美、体育和娱乐用品制造业</option>
+                    <option>C2438 珠宝首饰及有关物品的制造</option>
+                    <option>C2450 玩具制造</option>
+                    <option>C26 化学原料和化学制品制造业</option>
+                    <option>C263 农药制造</option>
+                    <option>C2641 涂料制造</option>
+                    <option>C2662 专项化学用品制造</option>
+                    <option>C2669 其他专用化学产品制造</option>
+                    <option>C2682 化妆品制造</option>
+                    <option>C26 化学原料和化学品制造业</option>
+                    <option>C273 中药饮片加工</option>
+                    <option>C29  橡胶和塑料制品业 </option>
+                    <option>C292 塑料制品业</option>
+                    <option>C2921 塑料薄膜制造</option>
+                    <option>C2922 塑料板、管、型材制造  </option>
+                    <option>C2924 泡沫塑料制造</option>
+                    <option>C2926 塑料包装箱及容器制造</option>
+                    <option>C2927 日用塑料制品制造</option>
+                    <option>C2928 塑料零件制造</option>
+                    <option>C2929 其他塑料制品制造</option>
+                    <option>C30 非金属矿物制品业</option>
+                    <option>C30 塑料制品业</option>
+                    <option>C303 砖瓦、石材等建筑材料制造</option>
+                    <option>C3033 建筑用石加工</option>
+                    <option>C3039 其他建筑材料制造</option>
+                    <option>C305 玻璃制品制造</option>
+                    <option>C3051 技术玻璃制品制造</option>
+                    <option>C3071 卫生陶瓷制品制造</option>
+                    <option>C3140 钢压延加工</option>
+                    <option>C33  金属制品业</option>
+                    <option>C3311 金属结构制造</option>
+                    <option>C3352 建筑装饰及水暖管道零件制造</option>
+                    <option>C3381 金属制厨房用器具制造</option>
+                    <option>C3383 金属制卫生器具制造</option>
+                    <option>C3389 其他金属制日用品制造</option>
+                    <option>C339  其他金属制品制造</option>
+                    <option>C3392 交通及公共管理用金属标牌制造   </option>
+                    <option>C34 通用设备制造业</option>
+                    <option>C342 金属加工机械制造 </option>
+                    <option>C3431 轻小型起重设备制造</option>
+                    <option>C3433 生产专用车辆制造 </option>
+                    <option>C3462 风机、风扇制造</option>
+                    <option>C348 通用零部件制造</option>
+                    <option>C3482 紧固件制造</option>
+                    <option>C3483 通用设备制造业</option>
+                    <option>C3484 机械零部件加工</option>
+                    <option>C35 专用设备制造业</option>
+                    <option>C3525 模具制造</option>
+                    <option>C354 印刷、制药、日化及日用品生产专用设备制造</option>
+                    <option>C3561 电工机械专用设备制造                </option>
+                    <option>C3585 机械治疗及病房护理设备制造</option>
+                    <option>C3599 其他专用设备制造</option>
+                    <option>C3660 汽车零部件及配件制造</option>
+                    <option>C37 铁路、船舶、航空航天和其他运输设备制造业</option>
+                    <option>C38 电气机械和器材制造 </option>
+                    <option>C3819 微电机及其他电机制造</option>
+                    <option>C3823 配电开关控制设备制造 </option>
+                    <option>C3829 其他输配电及控制设备制造</option>
+                    <option>C383 电线、电缆、光缆及电工器材制造</option>
+                    <option>C385 家用电力器具制造</option>
+                    <option>C3852 家用空气调节器制造</option>
+                    <option>C3854 家用厨房电器具制造</option>
+                    <option>C3857 家用电力器具专用配件制造    </option>
+                    <option>C3859 其他家用电力器具制造</option>
+                    <option>C3872 照明灯具制造</option>
+                    <option>C3879 灯用电器附件及其他照明器具制造 </option>
+                    <option>C39 计算机、通信和其他电子设备制造业</option>
+                    <option>C3951 电视机制造</option>
+                    <option>C3971 电子元件及组件制造</option>
+                    <option>C42 废弃资源综合利用业</option>
+                    <option>C81 其他服务业</option>
+                    <option>D44 电力、热力生产和供应业 </option>
+                    <option>E48 土木工程建筑业</option>
+                    <option>E4813 市政道路工程建筑</option>
+                    <option>E4822 河湖治理及防洪设施工程建筑  </option>
+                    <option>E4852 管道工程建筑</option>
+                    <option>E7610 防洪除涝设施管理</option>
+                    <option>G59 仓储业</option>
+                    <option>G5990 其他仓储业</option>
+                    <option>H62 餐饮业</option>
+                    <option>K70 房地产业</option>
+                    <option>L72 商务服务业</option>
+                    <option>M73 研究和试验发展</option>
+                    <option>M7461 环境保护监测</option>
+                    <option>N76 水利管理业</option>
+                    <option>N7610 防洪除涝设施管理服务</option>
+                    <option>N77 生态保护和环境治理业</option>
+                    <option>N7852 游览景区管理</option>
+                    <option>Q83 卫生</option>
+                    <option>Q8330 门诊部</option>
+                    <option>Q839 其他卫生活动</option>
+            </select>
+          </td>
+          <td>环评单位</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="environmentAssessmentCompany" placeholder="单位名称">
+          </td>
+          <td>法人代表</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="corporateName" placeholder="姓名">
+          </td>
+          <td>法人身份证号</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="corporateId" placeholder="身份证号码">
+          </td>
+          <td>联系人</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="contacts" placeholder="姓名">
+          </td>
+          <td>联系电话</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="telephone" placeholder="电话">
+          </td>
+          <td>邮政编码</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="postalCode" placeholder="6位数字">
+          </td>
+          <td>地址</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="address" placeholder="对照营业执照">
+          </td>
+          <td>项目总投资（万元）</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="totalInvestment" placeholder="对照营业执照">
+          </td>
+          <td>环保投资（万元）</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestment" placeholder="比例约10-15%">
+          </td>
+          <td>环保投资所占比例（%）</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestmentProportion" placeholder="比例约10-15%">
+          </td>
+          <td>占地面积（m2）</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="floorSpace" placeholder="与经营场所使用证明或房产证明一致">
+          </td>
+          <td>经营面积（m2）</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="managementSpace" placeholder="多层建筑要乘层数">
+          </td>
+          <td>职工不住宿人数(人)</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="nonaccommodationNum" placeholder="">
+          </td>
+          <td>职工住宿人数(人)</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="accommodationNum" placeholder="">
+          </td>
+          <td>日工作时间</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="dayWorkTime" placeholder="小时数">
+          </td>
+          <td>年工作时间</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="yearWorkTime" placeholder="天数">
+          </td>
+          <td>投产时间</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="investmentTime" placeholder="一般以接单时间往后推半年计算，多以年计算">
+          </td>
+          <td>产品名称</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="productNames" placeholder="2个产品或以上用顿号分开">
+          </td>
+          <td>建设规模</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="constructionScale" placeholder="年产X产品X吨">
+          </td>
+          <td>噪声污染源设备</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="noiseEquipment" placeholder="清单中数量最多的2-3种设备">
+          </td>
+          <td>噪声监测点数目</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="noiseMonitoringPoints" placeholder="清单中数量最多的2-3种设备">
+          </td>
+          <td>包装袋年产生量</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="annualSolidWasteOutput" placeholder="t/a（固体废物）">
+          </td>
+          <td>电年耗量</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="annualPowerConsumption" placeholder="万kWh/a">
+          </td>
+          <td>纬度</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="latitude" placeholder="小数点后六位">
+          </td>
+          <td>经度</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="longtitude" placeholder="小数点后六位">
+          </td>
+          <td>东</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="east" placeholder="">
+          </td>
+          <td>南</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="south" placeholder="">
+          </td>
+          <td>西</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="west" placeholder="">
+          </td>
+          <td>北</td>
+          <td>
+            <input type="text"class="form-control input-sm" name="north" placeholder="">
+          </td>
+          <td>所在区镇</td>
+          <select class="form-control input-sm" name="township">
+              <option>北滘</option>
+              <option>乐从</option>
+              <option>伦教</option>
+              <option>勒流</option>
+              <option>大良</option>
+              <option>杏坛</option>
+              <option>容桂</option>
+              <option>龙江</option>
+              <option>均安</option>
+              <option>陈村</option>
+          </select>
+          <td>声环境质量标准</td>
+          <td>
+              <select class="form-control input-sm" name="soundEnvironmentStandard">
+              <option>0类</option>
+              <option>1类</option>
+              <option>2类</option>
+              <option>3类</option>
+              <option>4a类</option>
+              <option>4b类</option>
+          </select>
+          </td>
+          <td>地下水区域</td>
+          <td>
+              <select class="form-control input-sm" name="groundwaterArea">
+              <option>珠江三角洲佛山南海分散式开发利用区</option>
+              <option>珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区</option>
+              <option>北江佛山三水地下水水源涵养区</option>
+              <option>珠江三角洲佛山南海地下水水源涵养区</option>
+              <option>珠江三角洲佛山三水地下水水源涵养区</option>
+              <option>珠江三角洲佛山高明地下水水源涵养区</option>
+              <option>珠江三角洲佛山顺德不宜开采区</option>
+              <option>珠江三角洲佛山高明不宜开采区</option>
+              <option>珠江三角洲佛山三水储备区</option>
+              <option>北江佛山三水应急水源区</option>
+              <option>珠江三角洲佛山南海应急水源区</option>
+          </select>
+          </td>
+          <td>大良污水厂特别选项</td>
+          <td>
+              <select class="form-control input-sm" name="specialOptionforDaliang">
+              <option>无</option>
+              <option>逢沙</option>
+              <option>大门</option>
+          </select>
+          </td>
+          <td>是否污水处理厂纳污范围</td>
+          <td>
+              <select class="form-control input-sm" name="besideWaterTreatmentPlant">
+              <option>是</option>
+              <option>否</option>
+          </select>
+          </td>
+          <td>敏感点距离</td>
+          <td>
+              <select class="form-control input-sm" name="sensitivePointDistance">
+              <option>≤50</option>
+              <option>≤100</option>
+              <option>＞100</option>
+          </select>
+          </td>
+          <td>水源保护区距离</td>
+          <td>
+              <select class="form-control input-sm" name="waterSourceDistance">
+              <option>＜0</option>
+              <option>≤500</option>
+              <option>＞500</option>
+          </select>
+          </td>
+          <input type="submit" value="提交" class="btn btn-block btn-lg btn-primary"/>
+    </form>
+        <p>{{ rlt }}</p>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <div style="text-align: center">
+    <ul class="pagination center-block">
+      <li class="previous"><a href="#fakelink" class="fui-arrow-left"></a></li>
+      <li class="active"><a href="#fakelink">1</a></li>
+      <li><a href="#fakelink">2</a></li>
+      <li><a href="#fakelink">3</a></li>
+      <li><a href="#fakelink">4</a></li>
+      <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
+    </ul>
+  </div>
+  </body>
+</html>
