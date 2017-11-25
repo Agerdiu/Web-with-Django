@@ -7,10 +7,16 @@
 </head>
 <body>
 <h1>GIS Form</h1>
-<form method='post'>
-{% csrf_token %}
-{{form}}
-<input type="submit" value="提交">
+{% csrf_token %}
+{% for enterprise in enterprise_list %}
+<p>项目id:{{enterprise.enterpriseId}}</p><br>
+<p>项目名称:{{enterprise.enterpriseName}}</p><br>
+    <p>负责人:{{enterprise.workerId.first_name}}</p><br>
+    <p>开始日期:{{enterprise.createTime}}</p><br>
+    <p>进行天数:{{enterprise.durationTime.days}}</p><br>
+    <a href="{{ enterprise.get_upload_url }}">上传</a>
+    <a href="{{ enterprise.get_download_url }}">下载</a>
+{% endfor %}
 </form>
 </body>
 </html>

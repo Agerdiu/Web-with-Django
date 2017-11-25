@@ -1,6 +1,6 @@
 import xlwings as xw
 import MySQLdb
-db = MySQLdb.connect(host="localhost", user="root", passwd="", db="EIA",charset = "utf8")
+db = MySQLdb.connect(host="localhost", user="root", passwd="lyj3135019-abc", db="EIA",charset = "utf8")
 def getdata(db,ID):
     sql = 'SELECT * FROM eia_enterprise WHERE enterpriseId = ' + ID
     print(sql)

@@ -12,4 +12,7 @@ urlpatterns = [
     url(r'^products_submit/$', products_dealing.products_submit),
     url(r'^table/$', views.table, name='table'),
     url(r'^products/$', views.products, name='products'),
+    url(r'^enterprise/upload/(?P<enterpriseId>[0-9]+)/$', views.upload, name='upload'),
+    url(r'^enterprise/download/(?P<enterpriseId>[0-9]+)/$', views.upload, name='download'),
+
 ]

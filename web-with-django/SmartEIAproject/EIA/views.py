@@ -1,8 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from .form import EnterpriseForm,UserLoginForm,UserRegisterForm
 from django.contrib import auth
-from .models import User
+from .models import User,Enterprise
 from django.utils import timezone
 
 
@@ -53,7 +53,7 @@ def login(request):
                 now_time = timezone.now()
                 user.last_login = now_time
                 user.save()
-                return render(request, 'EIA/gis.html', context={})
+                return redirect('/gis')
             else:
                 return render(request, 'EIA/login.html', context={'error': '账户或密码错误，不存在，请重新输入'})
         else:
@@ -64,18 +64,17 @@ def login(request):
 
 
 def gis(request):
-    if request.method == 'POST':
-        form = EnterpriseForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponse('good')
-        else:
-            return render(request, 'EIA/gis.html', {'form': form})
-
+    user = request.user
+    if request.user.is_authenticated():
+        enterprise_list=user.enterprise_set.all()
+        for enterprise in enterprise_list:
+            enterprise.durationTime=timezone.now()-enterprise.createTime
+        return render(request, 'EIA/gis.html', context={'enterprise_list':enterprise_list,'check':123})
     else:
-        form = EnterpriseForm()
-        return render(request, 'EIA/gis.html', {'form': form})
+        return render(request, 'EIA/gis.html', context={})
+
+
+
 
 
 def table(request):
@@ -83,3 +82,14 @@ def table(request):
 
 def products(request):
     return render(request, 'EIA/products.html', context={})
+
+
+def download(request,enterpriseId):
+    enterprise=post = get_object_or_404(Enterprise, enterpriseId=enterpriseId)
+    print(enterpriseId)
+    return HttpResponse("good")
+
+def upload(request,enterpriseId):
+    enterprise=post = get_object_or_404(Enterprise, enterpriseId=enterpriseId)
+    print(enterpriseId)
+    return HttpResponse("good")

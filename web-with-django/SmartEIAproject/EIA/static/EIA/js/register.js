@@ -18,10 +18,10 @@ function validate_adds_form() {
     var environmentAssessmentCompany=$("#reg_environmentAssessmentCompany_input").val();
     var regenvironmentAssessmentCompany=/^[\u4e00-\u9fa5]{2,20}$/;
     if(!regenvironmentAssessmentCompany.test(environmentAssessmentCompany)){
-        show_validate_msg("#reg_Name_input","error","请输入正确公司名称");
+        show_validate_msg("#reg_environmentAssessmentCompany_input","error","请输入正确公司名称");
         return false;
     }else{
-        show_validate_msg("#reg_Name_input","success","");
+        show_validate_msg("#reg_environmentAssessmentCompany_input","success","");
     }
     //校验姓名
     var first_name=$("#reg_Name_input").val();

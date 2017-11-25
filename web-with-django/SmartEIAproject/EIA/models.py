@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 
 
@@ -24,6 +25,9 @@ class Worker(models.Model):
 class Enterprise(models.Model):
     enterpriseId = models.AutoField(primary_key=True)  # 公司id primary_key
     workerId = models.ForeignKey('User', on_delete=models.CASCADE)  # 管理员工id foreign_key 多对一
+    createTime=models.DateTimeField(auto_now_add=True)  # 创建时间
+    durationTime=models.DateTimeField(null=True)  # 进行天数
+    updateTime=models.DateTimeField(auto_now=True)  # 更新时间
     NEIType = models.CharField(max_length=255, null=True)  # 国民经济行业类别及代码 default null
     nameAbbreviation = models.CharField(max_length=255, null=True)  # 名称缩写 default null
     enterpriseName = models.CharField(max_length=255, null=True)  # 公司名称 default null
@@ -63,8 +67,15 @@ class Enterprise(models.Model):
     besideWaterTreatmentPlant = models.CharField(max_length=5, null=True)  # 是否污水处理厂纳污范围 default null
     sensitivePointDistance = models.CharField(max_length=5, null=True) # 敏感点距离 default null
     waterSourceDistance = models.CharField(max_length=5, null=True) # 水源保护地距离 default null
-def __str__(self):
+    def __str__(self):
         return self.enterpriseName
+
+
+    def get_upload_url(self):
+        return reverse('upload', kwargs={'enterpriseId': self.enterpriseId})
+
+    def get_download_url(self):
+        return reverse('download', kwargs={'enterpriseId': self.enterpriseId})
 
 
 class Product(models.Model):
@@ -101,6 +112,3 @@ class Equipments(models.Model):
     enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     def __str__(self):
         return self.equipName
-    class Meta:
-        managed = False
-        db_table = 'eia_equipments'

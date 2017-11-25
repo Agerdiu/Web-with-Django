@@ -5,7 +5,7 @@ from . import exw
 import pythoncom
 import xlwings as xw
 import MySQLdb
-db = MySQLdb.connect(host="localhost", user="root", passwd="", db="EIA",charset = "utf8")
+db = MySQLdb.connect(host="localhost", user="root", passwd="lyj3135019-abc", db="EIA",charset = "utf8")
 c = db.cursor()
 def products_submit(request):
     if request.POST:
