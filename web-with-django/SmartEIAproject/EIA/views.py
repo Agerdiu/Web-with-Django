@@ -4,7 +4,8 @@ from .form import EnterpriseForm,UserLoginForm,UserRegisterForm
 from django.contrib import auth
 from .models import User,Enterprise
 from django.utils import timezone
-
+import os
+from django.http import StreamingHttpResponse
 
 def index(request):
     return render(request, 'EIA/index.html', context={
@@ -87,9 +88,42 @@ def products(request):
 def download(request,enterpriseId):
     enterprise=post = get_object_or_404(Enterprise, enterpriseId=enterpriseId)
     print(enterpriseId)
-    return HttpResponse("good")
+    # do something...
+    baseDir = os.path.dirname(os.path.abspath(__name__))
+    exceldir = os.path.join(baseDir, 'Projects', 'P' + enterpriseId)
+    filename = os.path.join(exceldir, 'P' + enterpriseId + ".xlsm") # 要下载的文件路径
+    print(filename)
+    # do something...
+    the_file_name = 'P' + enterpriseId + ".xlsm"  # 显示在弹出对话框中的默认的下载文件名
+    response = StreamingHttpResponse(readFile(filename))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    return response
 
-def upload(request,enterpriseId):
-    enterprise=post = get_object_or_404(Enterprise, enterpriseId=enterpriseId)
-    print(enterpriseId)
-    return HttpResponse("good")
+def readFile(filename,chunk_size=512):
+    with open(filename,'rb') as f:
+        while True:
+            c=f.read(chunk_size)
+            if c:
+                yield c
+            else:
+                break
+
+
+def upload(request):
+    if request.POST:
+        excel=request.FILES.get('excel')
+        baseDir = os.path.dirname(os.path.abspath(__name__))
+        formdict = request.POST.dict()
+        ID = formdict["ID"]
+        exceldir = os.path.join(baseDir, 'Projects','P'+ID)
+        filename = os.path.join(exceldir, 'P'+ID+".xlsm")
+        try:
+            fobj = open(filename, 'wb')
+        except:
+            os.mkdir(exceldir)
+            fobj = open(filename, 'wb')
+        for chrunk in excel.chunks():
+            fobj.write(chrunk)
+        fobj.close()
+        return HttpResponse(excel.name)
