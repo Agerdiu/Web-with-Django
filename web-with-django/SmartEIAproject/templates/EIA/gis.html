@@ -78,7 +78,14 @@
                 <td>{{enterprise.workerId.first_name}}</td>
                 <td>{{enterprise.createTime|date:"Y年m月d日"}}</td>
                 <td>{{enterprise.durationTime.days}}</td>
-                <td><a href="{{ enterprise.get_upload_url }}">上传</a></td>
+                <td>
+                    <form action="/upload/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <input type="file" name="excel"/><br />
+                        <input type="submit" value="确认上传"class="btn btn-block btn-lg btn-primary" />
+                        <input type="text" value ="{{enterprise.enterpriseId}}" name="ID" style="display:none"/>
+                    </form>
+                </td>
                 <td><a href="{{ enterprise.get_download_url }}">下载</a></td>
             </tr>
             {% endfor %}
