@@ -57,17 +57,18 @@
   <!--巨幕-->
   <div class="container">
     <div class="col-md-12">
-        <h4 class="page-header">产品表</h4>
-         <form action="/products/{{ enterpriseId }}/" method="POST">
+        <h4 class="page-header">材料表</h4>
+         <form action="/materials/{{ enterpriseId }}/" method="POST">
              {% csrf_token %}
-             <table id="product-table" class="table">
+             <table id="material-table" class="table">
                  <thead>
                  <tr>
                      <th>序号</th>
-                     <th>产品名称</th>
+                     <th>材料名称</th>
                      <th>数量</th>
                      <th>单位</th>
-                     <th>备注</th>
+                     <th>是否为边角料</th>
+                     <th>材料状态</th>
                  </tr>
                  </thead>
                  <input type="hidden" class="form-control input-sm" id="total-num" name="form-TOTAL_FORMS" value="2">
@@ -77,7 +78,7 @@
                  <tr>
                      <td>1</td>
                      <td>
-                         <input type="text"class="form-control input-sm" name="form-0-productsName" placeholder="">
+                         <input type="text"class="form-control input-sm" name="form-0-materialName" placeholder="">
                      </td>
                      <td>
                          <input type="text"class="form-control input-sm" name="form-0-num" placeholder="">
@@ -86,13 +87,16 @@
                          <input type="text"class="form-control input-sm" name="form-0-unit" placeholder="">
                      </td>
                      <td>
-                         <input type="text"class="form-control input-sm" name="form-0-remark" placeholder="">
+                         <input type="text"class="form-control input-sm" name="form-0-isOffcut" placeholder="">
+                     </td>
+                     <td>
+                         <input type="text"class="form-control input-sm" name="form-0-state" placeholder="">
                      </td>
                  </tr>
                  <tr>
-                     <td>2</td>
+                     <td>1</td>
                      <td>
-                         <input type="text"class="form-control input-sm" name="form-1-productsName" placeholder="">
+                         <input type="text"class="form-control input-sm" name="form-1-materialName" placeholder="">
                      </td>
                      <td>
                          <input type="text"class="form-control input-sm" name="form-1-num" placeholder="">
@@ -101,15 +105,18 @@
                          <input type="text"class="form-control input-sm" name="form-1-unit" placeholder="">
                      </td>
                      <td>
-                         <input type="text"class="form-control input-sm" name="form-1-remark" placeholder="">
+                         <input type="text"class="form-control input-sm" name="form-1-isOffcut" placeholder="">
+                     </td>
+                     <td>
+                         <input type="text"class="form-control input-sm" name="form-1-state" placeholder="">
                      </td>
                  </tr>
                  </tbody>
              </table>
              <input type="submit" value="提交" class="btn btn-block  btn-primary"/>
          </form>
-        <button id="product_add_btn" class="btn btn-block btn-info">add</button>
-        <button id="product_remove_btn" class="btn btn-block btn-danger">remove</button>
+        <button id="material_add_btn" class="btn btn-block btn-info">add</button>
+        <button id="material_remove_btn" class="btn btn-block btn-danger">remove</button>
     </div>
   </div>
 <script src="{% static 'EIA/js/item-add-remove.js' %}"></script>

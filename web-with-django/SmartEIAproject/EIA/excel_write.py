@@ -1,0 +1,53 @@
+import xlwings as xw
+import pythoncom
+
+def enterpriseExcelWrite(enterprise):
+    pythoncom.CoInitialize()
+    app=xw.App(visible=False,add_book=False)  # visible是否打开文件
+    app.display_alerts=False
+    app.screen_updating=False
+    filepath = r'E:\CharmProjects\环评报告1.xlsm'
+    wb=app.books.open(filepath)
+    sheet=wb.sheets['信息']
+    sheet.range('B1').value = enterprise.enterpriseName
+    sheet.range('B2').value = enterprise.nameAbbreviation
+    sheet.range('B3').value = enterprise.NEIType
+    sheet.range('B4').value = enterprise.environmentAssessmentCompany
+    sheet.range('B5').value = enterprise.corporateName
+    sheet.range('B6').value = enterprise.corporateId
+    sheet.range('B7').value = enterprise.contacts
+    sheet.range('B8').value = enterprise.telephone
+    sheet.range('B9').value = enterprise.postalCode
+    sheet.range('B10').value = enterprise.address
+    sheet.range('B11').value = enterprise.totalInvestment
+    sheet.range('B12').value = enterprise.environmentalProtectionInvestment
+    sheet.range('B13').value = enterprise.environmentalProtectionInvestmentProportion
+    sheet.range('B14').value = enterprise.floorSpace
+    sheet.range('B15').value = enterprise.managementSpace
+    sheet.range('B16').value = enterprise.nonAccommodationNum
+    sheet.range('B17').value = enterprise.accommodationNum
+    sheet.range('B19').value = enterprise.dayWorkTime
+    sheet.range('B20').value = enterprise.yearWorkTime
+    sheet.range('B21').value = enterprise.investmentTime
+    sheet.range('B22').value = enterprise.productNames
+    sheet.range('B23').value = enterprise.constructionScale
+    sheet.range('B24').value = enterprise.noiseEquipment
+    sheet.range('B25').value = enterprise.noiseMonitoringPoints
+    sheet.range('B26').value = enterprise.annualSolidWasteOutput
+    sheet.range('B27').value = enterprise.annualPowerConsumption
+    sheet.range('B28').value = enterprise.latitude
+    sheet.range('B29').value = enterprise.longtitude
+    sheet.range('B30').value = enterprise.east
+    sheet.range('B31').value = enterprise.south
+    sheet.range('B32').value = enterprise.west
+    sheet.range('B33').value = enterprise.north
+    sheet.range('B34').value = enterprise.township
+    sheet.range('B35').value = enterprise.soundEnvironmentStandard
+    sheet.range('B36').value = enterprise.groundwaterArea
+    sheet.range('B40').value = enterprise.specialOptionforDaliang
+    sheet.range('B41').value = enterprise.besideWaterTreatmentPlant
+    sheet.range('B48').value = enterprise.sensitivePointDistance
+    sheet.range('B49').value = enterprise.waterSourceDistance
+    wb.save()
+    wb.close()
+    app.quit()

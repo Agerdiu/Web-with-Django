@@ -57,14 +57,14 @@
   <!--巨幕-->
   <div class="container">
     <div class="col-md-12">
-        <h4 class="page-header">产品表</h4>
-         <form action="/products/{{ enterpriseId }}/" method="POST">
+        <h4 class="page-header">设备表</h4>
+         <form action="/equipments/{{ enterpriseId }}/" method="POST">
              {% csrf_token %}
-             <table id="product-table" class="table">
+             <table id="equipment-table" class="table">
                  <thead>
                  <tr>
                      <th>序号</th>
-                     <th>产品名称</th>
+                     <th>设备名称</th>
                      <th>数量</th>
                      <th>单位</th>
                      <th>备注</th>
@@ -73,43 +73,43 @@
                  <input type="hidden" class="form-control input-sm" id="total-num" name="form-TOTAL_FORMS" value="2">
                  <input type="hidden" class="form-control input-sm" name="form-INITIAL_FORMS" value="0">
                  <input type="hidden" class="form-control input-sm" name="form-MAX_NUM_FORMS" value="">
-                 <tbody>
-                 <tr>
-                     <td>1</td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-0-productsName" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-0-num" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-0-unit" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-0-remark" placeholder="">
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>2</td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-1-productsName" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-1-num" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-1-unit" placeholder="">
-                     </td>
-                     <td>
-                         <input type="text"class="form-control input-sm" name="form-1-remark" placeholder="">
-                     </td>
-                 </tr>
-                 </tbody>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-0-equipName" placeholder="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-0-num" placeholder="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-0-unit" placeholder="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-0-remark" placeholder="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-1-equipName" placeholder="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-1-num" placeholder="">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control input-sm" name="form-1-unit" placeholder="">
+                    </td>
+                    <td>
+                                <input type="text" class="form-control input-sm" name="form-1-remark" placeholder="">
+                    </td>
+                </tr>
+                </tbody>
              </table>
              <input type="submit" value="提交" class="btn btn-block  btn-primary"/>
          </form>
-        <button id="product_add_btn" class="btn btn-block btn-info">add</button>
-        <button id="product_remove_btn" class="btn btn-block btn-danger">remove</button>
+        <button id="equipment_add_btn" class="btn btn-block btn-info">add</button>
+        <button id="equipment_remove_btn" class="btn btn-block btn-danger">remove</button>
     </div>
   </div>
 <script src="{% static 'EIA/js/item-add-remove.js' %}"></script>
