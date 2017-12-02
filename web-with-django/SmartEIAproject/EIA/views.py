@@ -1,12 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect
 from .form import EnterpriseForm,UserLoginForm,UserRegisterForm,ProductForm,EquipmentForm,MaterialForm
 from django.contrib import auth
-from .models import User,Enterprise,Product,Materials,Equipments
+from .models import User,Enterprise
 from django.utils import timezone
 import os
 from django.http import StreamingHttpResponse
-from .excel_write import enterpriseExcelWrite
+from .excel_write import enterpriseExcelWrite,equipmentExcelWrite,productExcelWrite,materialExcelWrite
 from django.forms import formset_factory
 from django.urls import reverse
 
@@ -39,7 +39,7 @@ def register(request):
                 user=User(username=userName,email=email,telephone=telephone,password=password,first_name=first_name,is_manager=is_manager,environmentAssessmentCompany=environmentAssessmentCompany)
                 user.set_password(password)
                 user.save()
-                return redirect("/manage")
+                return render(request, 'EIA/login.html', context={})
         else:
             return render(request, 'EIA/register.html', context={'error': '输入不合法，请重新输入'})
     else:
@@ -56,6 +56,8 @@ def login(request):
             user = auth.authenticate(username=userName, password=password)
             if user:
                 auth.login(request, user)
+                request.session["userName"] = user.first_name
+                print(user.first_name)
                 now_time = timezone.now()
                 user.last_login = now_time
                 user.save()
@@ -67,6 +69,10 @@ def login(request):
     else:
         return render(request, 'EIA/login.html', context={})
 
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'EIA/login.html', context={})
 
 def gis(request):
     return render(request, 'EIA/index.html', context={})
@@ -93,6 +99,7 @@ def products(request,enterpriseId):
                 product = f.save(commit=False)
                 product.enterpriseId=enterprise
                 product.save()
+                productExcelWrite(set)
             return redirect(reverse("equipments",kwargs={'enterpriseId':enterpriseId}))
         else:
             return render(request, 'EIA/products.html', context={'error':'输入错误','enterpriseId':enterpriseId})
@@ -111,6 +118,7 @@ def materials(request,enterpriseId):
                 material = f.save(commit=False)
                 material.enterpriseId=enterprise
                 material.save()
+                materialExcelWrite(set)
             return redirect("/manage")
         else:
             return render(request, 'EIA/materials.html', context={'error': '输入错误','enterpriseId':enterpriseId})
@@ -130,6 +138,7 @@ def equipments(request,enterpriseId):
                 equipment = f.save(commit=False)
                 equipment.enterpriseId=enterprise
                 equipment.save()
+            equipmentExcelWrite(set)
             return redirect(reverse("materials",kwargs={'enterpriseId':enterpriseId}))
         else:
             return render(request, 'EIA/equipments.html', context={'error': '输入错误','enterpriseId':enterpriseId})
@@ -161,14 +170,9 @@ def createGisForm(request):
 
 
 def download(request,enterpriseId):
-    enterprise=post = get_object_or_404(Enterprise, enterpriseId=enterpriseId)
-    print(enterpriseId)
-    # do something...
     baseDir = os.path.dirname(os.path.abspath(__name__))
     exceldir = os.path.join(baseDir, 'Projects', 'P' + enterpriseId)
     filename = os.path.join(exceldir, 'P' + enterpriseId + ".xlsm") # 要下载的文件路径
-    print(filename)
-    # do something...
     the_file_name = 'P' + enterpriseId + ".xlsm"  # 显示在弹出对话框中的默认的下载文件名
     response = StreamingHttpResponse(readFile(filename))
     response['Content-Type'] = 'application/octet-stream'
@@ -203,4 +207,6 @@ def upload(request):
         for chrunk in excel.chunks():
             fobj.write(chrunk)
         fobj.close()
-        return HttpResponse(excel.name)
+        return render(request, 'EIA/manage.html', context={})
+    else:
+        return HttpResponse("error")

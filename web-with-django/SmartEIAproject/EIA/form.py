@@ -1,5 +1,5 @@
 from django import forms
-from .models import Enterprise, User,Product,Equipments,Materials
+from .models import Enterprise, User,Product,Equipment,Material
 
 
 class EnterpriseForm(forms.ModelForm):
@@ -35,12 +35,12 @@ class ProductForm(forms.ModelForm):
 
 class EquipmentForm(forms.ModelForm):
     class Meta:
-        model = Equipments
+        model = Equipment
         fields = ['equipName','num','unit','remark']
 
 
 
 class MaterialForm(forms.ModelForm):
     class Meta:
-        model = Materials
+        model = Material
         fields = ['materialName','num','unit','isOffcut','state']

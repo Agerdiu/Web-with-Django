@@ -90,7 +90,7 @@ class Product(models.Model):
 
 
 
-class Materials(models.Model):
+class Material(models.Model):
     materialId = models.AutoField(primary_key=True)  # Field name made lowercase.
     enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     materialName = models.CharField(max_length=50)  #Field name made lowercase.
@@ -103,7 +103,7 @@ class Materials(models.Model):
 
 
 
-class Equipments(models.Model):
+class Equipment(models.Model):
     equipId = models.AutoField(primary_key=True)  # Field name made lowercase.
     enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     equipName = models.CharField( max_length=50)  # Fieldname made lowercase.

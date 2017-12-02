@@ -51,3 +51,69 @@ def enterpriseExcelWrite(enterprise):
     wb.save()
     wb.close()
     app.quit()
+
+
+def equipmentExcelWrite(set):
+    pythoncom.CoInitialize()
+    app = xw.App(visible=False, add_book=False)  # visible是否打开文件
+    app.display_alerts = False
+    app.screen_updating = False
+    filepath = r'E:\CharmProjects\环评报告1.xlsm'
+    wb = app.books.open(filepath)
+    sheet = wb.sheets['设备']
+    num=2
+    for f in set:
+        equipment = f.save(commit=False)
+        list=[equipment.equipName,equipment.num,equipment.unit,equipment.remark]
+        print(list)
+        row='A'+str(num)
+        num+=1
+        print(row)
+        sheet.range(row).value=list
+    wb.save()
+    wb.close()
+    app.quit()
+
+
+def materialExcelWrite(set):
+    pythoncom.CoInitialize()
+    app = xw.App(visible=False, add_book=False)  # visible是否打开文件
+    app.display_alerts = False
+    app.screen_updating = False
+    filepath = r'E:\CharmProjects\环评报告1.xlsm'
+    wb = app.books.open(filepath)
+    sheet = wb.sheets['材料']
+    num=2
+    for f in set:
+        material = f.save(commit=False)
+        list=[material.materialName,material.num,material.unit,material.isOffcut,material.state]
+        print(list)
+        row='A'+str(num)
+        num+=1
+        print(row)
+        sheet.range(row).value=list
+    wb.save()
+    wb.close()
+    app.quit()
+
+
+def productExcelWrite(set):
+    pythoncom.CoInitialize()
+    app = xw.App(visible=False, add_book=False)  # visible是否打开文件
+    app.display_alerts = False
+    app.screen_updating = False
+    filepath = r'E:\CharmProjects\环评报告1.xlsm'
+    wb = app.books.open(filepath)
+    sheet = wb.sheets['产品']
+    num=2
+    for f in set:
+        product = f.save(commit=False)
+        list=[product.productName,product.num,product.unit,product.remark]
+        print(list)
+        row='A'+str(num)
+        num+=1
+        print(row)
+        sheet.range(row).value=list
+    wb.save()
+    wb.close()
+    app.quit()
