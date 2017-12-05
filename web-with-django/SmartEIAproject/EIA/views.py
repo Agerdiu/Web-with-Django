@@ -103,7 +103,7 @@ def updateStateType(request):
             if(key=='projectState'):
                 enterprise.projectState = formdict[key]
                 enterprise.save()
-        return redirect("/manage");
+                return render(request, 'EIA/uploading.html', context={'enterpriseId':1})
 
 def products(request,enterpriseId):
     if request.POST:
@@ -206,19 +206,18 @@ def readFile(filename,chunk_size=512):
                 break
 
 
-def upload(request):
+def upload(request,enterpriseId):
+    formdict = request.POST.dict()
+    filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
     if request.POST:
-        excel=request.FILES.get('excel')
-        formdict = request.POST.dict()
-        ID = formdict["ID"]
-        exceldir = os.path.join('C:\\文件库', 'Projects','P'+ID)
-        filename = os.path.join(exceldir, 'P'+ID+".xlsm")
-        if not os.path.isdir(exceldir):
-            os.makedirs(exceldir)
+        img1=request.FILES.get('imgl')
+        filename = os.path.join(filedir, img1.name)
+        if not os.path.isdir(filedir):
+            os.makedirs(filedir)
         fobj = open(filename, 'wb')
-        for chrunk in excel.chunks():
+        for chrunk in img1.chunks():
             fobj.write(chrunk)
         fobj.close()
-        return render(request, 'EIA/manage.html', context={})
+        return redirect("/manage")
     else:
         return HttpResponse("error")
