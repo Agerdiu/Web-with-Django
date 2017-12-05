@@ -26,7 +26,7 @@ class Enterprise(models.Model):
     enterpriseId = models.AutoField(primary_key=True)  # 公司id primary_key
     workerId = models.ForeignKey('User', on_delete=models.CASCADE)  # 管理员工id foreign_key 多对一
     createTime=models.DateTimeField(auto_now_add=True)  # 创建时间
-    durationTime=models.DateTimeField(null=True)  # 进行天数
+    durationTime=models.DateTimeField(auto_now=True)  # 进行天数
     updateTime=models.DateTimeField(auto_now=True)  # 更新时间
     NEIType = models.CharField(max_length=255, null=True)  # 国民经济行业类别及代码 default null
     nameAbbreviation = models.CharField(max_length=255, null=True)  # 名称缩写 default null
@@ -90,25 +90,25 @@ class Product(models.Model):
 
 
 
-class Materials(models.Model):
+class Material(models.Model):
     materialId = models.AutoField(primary_key=True)  # Field name made lowercase.
+    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     materialName = models.CharField(max_length=50)  #Field name made lowercase.
     num = models.FloatField(null=True)
     unit = models.CharField(max_length=20, null=True)
     isOffcut = models.CharField(max_length=5,null=True)  # Field name made lowercase.
     state = models.CharField(max_length=10,null=True)
-    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     def __str__(self):
         return self.materialName
 
 
 
-class Equipments(models.Model):
+class Equipment(models.Model):
     equipId = models.AutoField(primary_key=True)  # Field name made lowercase.
+    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     equipName = models.CharField( max_length=50)  # Fieldname made lowercase.
     num = models.IntegerField(null=True)
     unit = models.CharField(max_length=50, null=True)
     remark = models.CharField(max_length=255,null=True)
-    enterpriseId = models.ForeignKey(Enterprise, on_delete=models.CASCADE)  # Field name made lowercase.
     def __str__(self):
         return self.equipName

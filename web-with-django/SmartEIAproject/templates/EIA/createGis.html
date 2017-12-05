@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
-    <link href="{% static 'EIA/css/re-lo.css' %}" rel="stylesheet">
+    <link href="{% static 'EIA/css/register-login.css' %}" rel="stylesheet">
     <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
     <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
     <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
@@ -40,7 +40,7 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
-      <form action="/form-post/" method="POST">
+      <form action="/createGisForm/" method="POST">
           {% csrf_token %}
           <td colspan="2" style="text-align: center">建设单位名称</td>
           <td colspan="2">
@@ -212,7 +212,7 @@
           </td>
           <td>职工不住宿人数(人)</td>
           <td>
-            <input type="text"class="form-control input-sm" name="nonaccommodationNum" placeholder="">
+            <input type="text"class="form-control input-sm" name="nonAccommodationNum" placeholder="">
           </td>
           <td>职工住宿人数(人)</td>
           <td>
