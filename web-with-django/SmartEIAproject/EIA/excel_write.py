@@ -7,8 +7,7 @@ def enterpriseExcelWrite(enterprise):
     app=xw.App(visible=False,add_book=False)  # visible是否打开文件
     app.display_alerts=False
     app.screen_updating=False
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P' + str(enterprise.enterpriseId))
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterprise.enterpriseId))
     excelname = os.path.join(exceldir, 'P' + str(enterprise.enterpriseId) + ".xlsm")
     wb=app.books.open(excelname)
     sheet=wb.sheets['信息']
@@ -61,8 +60,7 @@ def equipmentExcelWrite(set,ID):
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P' + str(ID))
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
     excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
     wb = app.books.open(excelname)
     sheet = wb.sheets['设备']
@@ -85,8 +83,7 @@ def materialExcelWrite(set,ID):
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P' + str(ID))
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
     excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
     wb = app.books.open(excelname)
     sheet = wb.sheets['材料']
@@ -109,8 +106,7 @@ def productExcelWrite(set,ID):
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P' + str(ID))
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
     excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
     wb = app.books.open(excelname)
     sheet = wb.sheets['产品']
@@ -128,24 +124,20 @@ def productExcelWrite(set,ID):
     app.quit()
 
 def Excelcreate(ID):
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P'+str(ID))
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
     excelname = os.path.join(exceldir, 'P'+str(ID)+".xlsm")
     if not os.path.isdir(exceldir):
-        print("Excel creating...")
+        print("Exceldir creating..."+exceldir)
         os.makedirs(exceldir)
-    try:
-        fobj = open(excelname, 'r')
-    except:
+    if not os.path.isfile(excelname):
+        print("Excelfile creating..."+exceldir)
         pythoncom.CoInitialize()
         app = xw.App(visible=False, add_book=False)  # visible是否打开文件
         app.display_alerts = False
         app.screen_updating = False
-        modeldir = os.path.join(baseDir, 'Projects', '模板')
+        modeldir = os.path.join('C:\\文件库', '模板')
         modelpath = os.path.join(modeldir, 'model.xlsm')
         wb = app.books.open(modelpath)
         wb.save(excelname)
         wb.close()
         app.quit()
-        fobj = open(excelname, 'r')
-    fobj.close()
