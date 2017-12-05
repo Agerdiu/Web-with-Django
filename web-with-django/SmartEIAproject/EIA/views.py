@@ -162,7 +162,6 @@ def createGisForm(request):
                 enterprise.save()
                 Excelcreate(enterprise.enterpriseId)
                 enterpriseExcelWrite(enterprise)
-                print('success')
                 return redirect(reverse("products",kwargs={'enterpriseId':enterprise.enterpriseId}))
             else:
                 print(f.errors)
@@ -174,8 +173,7 @@ def createGisForm(request):
 
 
 def download(request,enterpriseId):
-    baseDir = os.path.dirname(os.path.abspath(__name__))
-    exceldir = os.path.join(baseDir, 'Projects', 'P' + enterpriseId)
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + enterpriseId)
     filename = os.path.join(exceldir, 'P' + enterpriseId + ".xlsm") # 要下载的文件路径
     the_file_name = 'P' + enterpriseId + ".xlsm"  # 显示在弹出对话框中的默认的下载文件名
     response = StreamingHttpResponse(readFile(filename))
@@ -198,10 +196,9 @@ def readFile(filename,chunk_size=512):
 def upload(request):
     if request.POST:
         excel=request.FILES.get('excel')
-        baseDir = os.path.dirname(os.path.abspath(__name__))
         formdict = request.POST.dict()
         ID = formdict["ID"]
-        exceldir = os.path.join(baseDir, 'Projects','P'+ID)
+        exceldir = os.path.join('C:\\文件库', 'Projects','P'+ID)
         filename = os.path.join(exceldir, 'P'+ID+".xlsm")
         if not os.path.isdir(exceldir):
             os.makedirs(exceldir)
