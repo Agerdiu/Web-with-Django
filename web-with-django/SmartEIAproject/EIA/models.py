@@ -69,6 +69,9 @@ class Enterprise(models.Model):
     waterSourceDistance = models.CharField(max_length=5, null=True) # 水源保护地距离 default null
     projectState = models.CharField(max_length=10, blank = True, null = True)  # Field name made lowercase.
     projectType = models.CharField(max_length=10, blank=True, null=True)  # Field name made lowercase.
+    intermediarySourcesCompleted = models.CharField( max_length=5, blank=True, null=True)  # Field name made lowercase.
+    intermediaryRemark = models.CharField(max_length = 255, blank = True, null = True)  # Field name made lowercase.
+    writerRemark = models.CharField(max_length=255, blank = True, null = True)  # Field name made lowercase.
     def __str__(self):
         return self.enterpriseName
 

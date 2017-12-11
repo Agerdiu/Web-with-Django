@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .form import EnterpriseForm,UserLoginForm,UserRegisterForm,ProductForm,EquipmentForm,MaterialForm
+from .form import EnterpriseForm,UserLoginForm,UserRegisterForm,ProductForm,EquipmentForm,MaterialForm,EnterpriseUpdateForm
 from django.contrib import auth
 from .models import User,Enterprise
 from django.utils import timezone
 import os
 from django.http import StreamingHttpResponse
+from django.http import QueryDict
 from .excel_write import enterpriseExcelWrite,equipmentExcelWrite,productExcelWrite,materialExcelWrite,Excelcreate
 from django.forms import formset_factory
 from django.urls import reverse
@@ -93,17 +94,28 @@ def manage(request):
 
 def updateStateType(request):
     if request.POST:
-        formdict = request.POST.dict()
-        for key in formdict:
-            print (key+'corresponds to'+ formdict[key])
-            if(key == 'ID'):
-                enterprise = Enterprise.objects.get(enterpriseId=formdict[key])
-            if(key == 'projectType'):
-                enterprise.projectType=formdict[key]
-            if(key=='projectState'):
-                enterprise.projectState = formdict[key]
+        IDlist= request.POST.getlist("enterpriseId")
+        Typelist = request.POST.getlist("projectType")
+        Statelist= request.POST.getlist("projectState")
+        Intermediary = request.POST.getlist("intermediarySourcesCompleted")
+        i=0
+        while(i<len(IDlist)):
+            Q = QueryDict("enterpriseId="+IDlist[i]+"&projectType="+Typelist[i]+"&projectState="+Statelist[i]+"&intermediarySourcesCompleted="+Intermediary[i])
+            print(Q)
+            i = i+1
+            f = EnterpriseUpdateForm(Q)
+            if f.is_valid():
+                enterpriseId = f.cleaned_data['enterpriseId']
+                enterprise = Enterprise.objects.get(enterpriseId=enterpriseId)
+                enterprise.projectType = f.cleaned_data['projectType']
+                enterprise.projectState = f.cleaned_data['projectState']
+                enterprise.intermediarySourcesCompleted = f.cleaned_data['intermediarySourcesCompleted']
                 enterprise.save()
-                return render(request, 'EIA/uploading.html', context={'enterpriseId':1})
+            else :
+                HttpResponse("error")
+        return render(request, 'EIA/uploading.html', context={'enterpriseId': 1})
+    else:
+        return redirect("/manage")
 
 def products(request,enterpriseId):
     if request.POST:
@@ -135,7 +147,7 @@ def materials(request,enterpriseId):
                 material.enterpriseId=enterprise
                 material.save()
                 materialExcelWrite(set,enterpriseId)
-            return redirect("/manage")
+                return render(request, 'EIA/uploading.html', context={'enterpriseId': enterpriseId})
         else:
             return render(request, 'EIA/materials.html', context={'error': '输入错误','enterpriseId':enterpriseId})
 
@@ -207,17 +219,20 @@ def readFile(filename,chunk_size=512):
 
 
 def upload(request,enterpriseId):
-    formdict = request.POST.dict()
     filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
     if request.POST:
-        img1=request.FILES.get('imgl')
-        filename = os.path.join(filedir, img1.name)
-        if not os.path.isdir(filedir):
-            os.makedirs(filedir)
-        fobj = open(filename, 'wb')
-        for chrunk in img1.chunks():
-            fobj.write(chrunk)
-        fobj.close()
-        return redirect("/manage")
+        i = 1;
+        while(i<=11):
+            file_obj = request.FILES.getlist('img'+str(i))
+            i = i + 1;
+            for f in file_obj:
+                filename = os.path.join(filedir, f.name)
+                if not os.path.isdir(filedir):
+                    os.makedirs(filedir)
+                fobj = open(filename, 'wb')
+                for chrunk in f.chunks():
+                    fobj.write(chrunk)
+                fobj.close()
+        return HttpResponse("uploadsuccess")
     else:
         return HttpResponse("error")

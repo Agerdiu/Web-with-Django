@@ -58,11 +58,12 @@
     </div>
   </div>
   <!--巨幕-->
+  <form action="/updateStateType/" method="post">
+                    {% csrf_token %}
   <div class="container">
     <div class="col-md-12">
         <h4 class="page-header">项目总览</h4>
-        <form action="/updateStateType/" method="post">
-                    {% csrf_token %}
+
         <table class="table">
             <tr>
                 <th>项目id</th>
@@ -72,6 +73,7 @@
                 <th>进行天数</th>
                 <th>类型</th>
                 <th>状态</th>
+                <th>中介材料齐全</th>
                 <th>下载</th>
             </tr>
             {% for enterprise in enterprise_list %}
@@ -82,7 +84,7 @@
                 <td>{{enterprise.createTime|date:"Y年m月d日"}}</td>
                 <td>{{enterprise.durationTime.days}}</td>
                 <td>
-                    <input type="text" name="ID" value={{enterprise.enterpriseId}} style="display:none">
+                    <input type="text" name="enterpriseId" value={{enterprise.enterpriseId}} style="display:none">
                     <select class="form-control input-sm" name="projectType">
                          <option selected="selected"style="display:none">{{enterprise.projectType}}</option>
                          <option>新建</option>
@@ -101,19 +103,28 @@
                          <option>取证</option>
                     </select>
                 </td>
-                <td><a href="{{ enterprise.get_download_url }}">下载</a></td>
+                <td>
+                    <select class="form-control input-sm" name="intermediarySourcesCompleted">
+                         <option selected="selected"style="display:none">{{enterprise.intermediarySourcesCompleted}}</option>
+                         <option>是</option>
+                         <option>否</option>
+                    </select>
+                </td>
+                <td>
+                    <div>
+                        <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
+                    </div>
+                    <div>
+                    <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </table>
         <input type="submit" value="更新"class="btn btn-block btn-lg btn-primary" />
-        </form>
-
-
-
-
-
     </div>
   </div>
+  </form>
 </body>
 
 

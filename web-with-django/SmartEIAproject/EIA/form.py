@@ -13,6 +13,11 @@ class EnterpriseForm(forms.ModelForm):
                   'north','township','soundEnvironmentStandard','groundwaterArea','specialOptionforDaliang',
                   'besideWaterTreatmentPlant','sensitivePointDistance','waterSourceDistance']
 
+class EnterpriseUpdateForm(forms.ModelForm):
+    enterpriseId=forms.IntegerField()
+    class Meta:
+        model=Enterprise
+        fields=['projectState','projectType','intermediarySourcesCompleted']
 
 class UserLoginForm(forms.ModelForm):
     class Meta:
