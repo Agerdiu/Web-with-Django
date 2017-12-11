@@ -14,6 +14,13 @@ class EnterpriseForm(forms.ModelForm):
                   'besideWaterTreatmentPlant','sensitivePointDistance','waterSourceDistance']
 
 
+class EnterpriseUpdateForm(forms.ModelForm):
+    enterpriseId=forms.IntegerField()
+    class Meta:
+        model=Enterprise
+        fields=['projectState','projectType']
+
+
 class UserLoginForm(forms.ModelForm):
     class Meta:
         model = User

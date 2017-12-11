@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^materials/(?P<enterpriseId>[0-9]+)/$', views.materials, name='materials'),
     url(r'^equipments/(?P<enterpriseId>[0-9]+)/$', views.equipments, name='equipments'),
     url(r'^createGisForm/$', views.createGisForm, name='createGisForm'),
-    url(r'^upload/$', views.upload, name='upload'),
+    url(r'^upload/(?P<enterpriseId>[0-9]+)/$', views.upload, name='upload'),
+    url(r'^updateStateType/$', views.updateStateType, name='updateStateType'),
     url(r'^enterprise/download/(?P<enterpriseId>[0-9]+)/$', views.download, name='download')
 ]
