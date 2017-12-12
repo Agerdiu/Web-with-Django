@@ -33,14 +33,14 @@
         <div class="form-group">
         <!--公司名称-->
         <div class="col-sm-12">
-          <input type="text" name="environmentAssessmentCompany" class="form-control" id="reg_environmentAssessmentCompany_input" placeholder="公司名称,请输入汉字">
+          <input type="text" name="environmentAssessmentCompany" class="form-control" id="reg_environmentAssessmentCompany_input" placeholder="公司名称">
           <span class="help-block"></span>
         </div>
       </div>
       <div class="form-group">
         <!--真实姓名-->
         <div class="col-sm-12">
-          <input type="text" name="first_name" class="form-control" id="reg_Name_input" placeholder="真实姓名,请输入汉字">
+          <input type="text" name="first_name" class="form-control" id="reg_Name_input" placeholder="真实姓名">
           <span class="help-block"></span>
         </div>
       </div>
@@ -66,12 +66,16 @@
         </div>
       </div>
        <label class="radio" style="float:left">
-            <input type="radio" name="is_manager" id="is_manager1" value="False" data-toggle="radio"checked="">
+            <input type="radio" name="position" id="position1" value="WK" data-toggle="radio"checked="">
             员工
        </label>
         <label class="radio" style="float:left; margin-left:10px;margin-top:0">
-            <input type="radio" name="is_manager" id="is_manager2" value="True" data-toggle="radio" >
+            <input type="radio" name="position" id="position2" value="MG" data-toggle="radio" >
             管理者
+        </label>
+        <label class="radio" style="float:left; margin-left:10px;margin-top:0">
+            <input type="radio" name="position" id="position3" value="AC" data-toggle="radio" >
+            中介
         </label>
          <div style="margin: auto; color:red ;text-align:center">{{ error }}</div>
     </form>

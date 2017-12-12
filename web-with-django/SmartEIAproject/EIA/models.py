@@ -5,6 +5,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    POSITION_CHOICES=(
+        ('MG','manager'),
+        ('WK','worker'),
+        ('AC','agency')
+    )
+    position = models.CharField(max_length=2,choices=POSITION_CHOICES,default='WK')
     manager = models.ForeignKey('self', null=True)
     is_manager = models.BooleanField(default=False)
     telephone = models.CharField(max_length=15, null=True)
@@ -24,7 +30,9 @@ class Worker(models.Model):
 
 class Enterprise(models.Model):
     enterpriseId = models.AutoField(primary_key=True)  # 公司id primary_key
-    workerId = models.ForeignKey('User', on_delete=models.CASCADE)  # 管理员工id foreign_key 多对一
+    workerId = models.ForeignKey('User',blank = True,null=True,related_name="workEnterprise")  # 对应
+    managerId = models.ForeignKey('User', blank=True,null=True,related_name="manageEnterprise")  # 对应
+    agencyId = models.ForeignKey('User', blank=True,null=True,related_name="agencyEnterprise")  # 对应
     createTime=models.DateTimeField(auto_now_add=True)  # 创建时间
     durationTime=models.DateTimeField(auto_now=True)  # 进行天数
     updateTime=models.DateTimeField(auto_now=True)  # 更新时间
@@ -69,6 +77,9 @@ class Enterprise(models.Model):
     waterSourceDistance = models.CharField(max_length=5, null=True) # 水源保护地距离 default null
     projectState = models.CharField(max_length=10, blank = True, null = True)  # Field name made lowercase.
     projectType = models.CharField(max_length=10, blank=True, null=True)  # Field name made lowercase.
+    intermediarySourcesCompleted = models.CharField( max_length=5, blank=True, null=True)  # Field name made lowercase.
+    intermediaryRemark = models.CharField(max_length = 255, blank = True, null = True)  # Field name made lowercase.
+    writerRemark = models.CharField(max_length=255, blank = True, null = True)  # Field name made lowercase.
     def __str__(self):
         return self.enterpriseName
 
