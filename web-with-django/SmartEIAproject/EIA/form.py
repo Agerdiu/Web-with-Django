@@ -13,6 +13,11 @@ class EnterpriseForm(forms.ModelForm):
                   'north','township','soundEnvironmentStandard','groundwaterArea','specialOptionforDaliang',
                   'besideWaterTreatmentPlant','sensitivePointDistance','waterSourceDistance']
 
+class EnterpriseUpdateForm(forms.ModelForm):
+    enterpriseId=forms.IntegerField()
+    class Meta:
+        model=Enterprise
+        fields=['projectState','projectType','intermediarySourcesCompleted','agencyId']
 
 class UserLoginForm(forms.ModelForm):
     class Meta:
@@ -23,7 +28,7 @@ class UserLoginForm(forms.ModelForm):
 class UserRegisterForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'telephone', 'email', 'password', 'is_manager','environmentAssessmentCompany']
+        fields = ['first_name', 'telephone', 'email', 'password', 'position','environmentAssessmentCompany']
 
 
 
@@ -44,3 +49,9 @@ class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
         fields = ['materialName','num','unit','isOffcut','state']
+
+
+class ChangeInfoForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields = ['email']

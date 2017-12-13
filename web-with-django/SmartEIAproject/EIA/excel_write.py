@@ -1,4 +1,5 @@
 import xlwings as xw
+import os
 import pythoncom
 
 def enterpriseExcelWrite(enterprise):
@@ -6,15 +7,16 @@ def enterpriseExcelWrite(enterprise):
     app=xw.App(visible=False,add_book=False)  # visible是否打开文件
     app.display_alerts=False
     app.screen_updating=False
-    filepath = r'E:\CharmProjects\环评报告1.xlsm'
-    wb=app.books.open(filepath)
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterprise.enterpriseId))
+    excelname = os.path.join(exceldir, 'P' + str(enterprise.enterpriseId) + ".xlsm")
+    wb=app.books.open(excelname)
     sheet=wb.sheets['信息']
-    sheet.range('B1').value = enterprise.enterpriseName
+    sheet.range('B3').value = enterprise.enterpriseName
     sheet.range('B2').value = enterprise.nameAbbreviation
-    sheet.range('B3').value = enterprise.NEIType
+    sheet.range('B1').value = enterprise.NEIType
     sheet.range('B4').value = enterprise.environmentAssessmentCompany
-    sheet.range('B5').value = enterprise.corporateName
-    sheet.range('B6').value = enterprise.corporateId
+    sheet.range('B6').value = enterprise.corporateName
+    sheet.range('B5').value = enterprise.corporateId
     sheet.range('B7').value = enterprise.contacts
     sheet.range('B8').value = enterprise.telephone
     sheet.range('B9').value = enterprise.postalCode
@@ -53,13 +55,14 @@ def enterpriseExcelWrite(enterprise):
     app.quit()
 
 
-def equipmentExcelWrite(set):
+def equipmentExcelWrite(set,ID):
     pythoncom.CoInitialize()
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    filepath = r'E:\CharmProjects\环评报告1.xlsm'
-    wb = app.books.open(filepath)
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
+    excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
+    wb = app.books.open(excelname)
     sheet = wb.sheets['设备']
     num=2
     for f in set:
@@ -75,13 +78,14 @@ def equipmentExcelWrite(set):
     app.quit()
 
 
-def materialExcelWrite(set):
+def materialExcelWrite(set,ID):
     pythoncom.CoInitialize()
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    filepath = r'E:\CharmProjects\环评报告1.xlsm'
-    wb = app.books.open(filepath)
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
+    excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
+    wb = app.books.open(excelname)
     sheet = wb.sheets['材料']
     num=2
     for f in set:
@@ -97,18 +101,19 @@ def materialExcelWrite(set):
     app.quit()
 
 
-def productExcelWrite(set):
+def productExcelWrite(set,ID):
     pythoncom.CoInitialize()
     app = xw.App(visible=False, add_book=False)  # visible是否打开文件
     app.display_alerts = False
     app.screen_updating = False
-    filepath = r'E:\CharmProjects\环评报告1.xlsm'
-    wb = app.books.open(filepath)
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
+    excelname = os.path.join(exceldir, 'P' + str(ID) + ".xlsm")
+    wb = app.books.open(excelname)
     sheet = wb.sheets['产品']
     num=2
     for f in set:
         product = f.save(commit=False)
-        list=[product.productName,product.num,product.unit,product.remark]
+        list=[product.productsName,product.num,product.unit,product.remark]
         print(list)
         row='A'+str(num)
         num+=1
@@ -117,3 +122,22 @@ def productExcelWrite(set):
     wb.save()
     wb.close()
     app.quit()
+
+def Excelcreate(ID):
+    exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + str(ID))
+    excelname = os.path.join(exceldir, 'P'+str(ID)+".xlsm")
+    if not os.path.isdir(exceldir):
+        print("Exceldir creating..."+exceldir)
+        os.makedirs(exceldir)
+    if not os.path.isfile(excelname):
+        print("Excelfile creating..."+exceldir)
+        pythoncom.CoInitialize()
+        app = xw.App(visible=False, add_book=False)  # visible是否打开文件
+        app.display_alerts = False
+        app.screen_updating = False
+        modeldir = os.path.join('C:\\文件库', '模板')
+        modelpath = os.path.join(modeldir, 'model.xlsm')
+        wb = app.books.open(modelpath)
+        wb.save(excelname)
+        wb.close()
+        app.quit()

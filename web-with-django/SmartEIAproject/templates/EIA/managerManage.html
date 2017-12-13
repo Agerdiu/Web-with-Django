@@ -1,0 +1,145 @@
+
+
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>SMART-EIA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0">
+  <link href="{% static 'EIA/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'EIA/css/flat-ui.css' %}" rel="stylesheet">
+  <link href="{% static 'EIA/css/register-login.css' %}" rel="stylesheet">
+  <script src="{% static 'EIA/js/jquery.min.js' %}"></script>
+  <script src="{% static 'EIA/js/flat-ui.min.js' %}"></script>
+</head>
+
+<body>
+  <!--导航栏-->
+  <header class="navbar navbar-static-top bs-docs-nav" id="top">
+    <div class="container">
+      <!--导航栏响应式设置-->
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+   </button>
+        <a href="##" class="navbar-brand">SMART-EIA</a>
+      </div>
+      <!--导航栏响应式设置-->
+      <nav id="bs-navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="/gis">首页</a>
+          </li>
+          <li class="active">
+            <a href="/createGisForm">表单页</a>
+          </li>
+          <li>
+            <a href="##">流程指南</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="##" target="_blank">智能环评管家</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!--导航栏-->
+  <!--巨幕-->
+  <div>
+    <div class="container">
+      <h1>智能环评管家</h1>
+      <p>提供环评、验收与应急预案一站式智能编写服务</p>
+    </div>
+  </div>
+  <!--巨幕-->
+
+  <div class="container">
+    <div class="col-md-12">
+        <h4 class="page-header">项目总览(管理者)</h4>
+        <form action="/updateStateType/" method="post">
+                    {% csrf_token %}
+        <table class="table">
+            <tr>
+                <th>项目id</th>
+                <th>项目名称</th>
+                <th>负责人</th>
+                <th>中介人ID</th>
+                <th>开始日期</th>
+                <th>进行天数</th>
+                <th>类型</th>
+                <th>状态</th>
+                <th>中介材料齐全</th>
+                <th>下载</th>
+            </tr>
+            {% for enterprise in enterprise_list %}
+            <tr>
+                <td>{{enterprise.enterpriseId}}</td>
+                <td>{{enterprise.enterpriseName}}</td>
+                <td>{{enterprise.workerId.first_name}}</td>
+                <td>
+                <input type="text"class="form-control input-sm"name="agencyId" value={{enterprise.agencyId.id}}>
+                </td>
+                <td>{{enterprise.createTime|date:"Y年m月d日"}}</td>
+                <td>{{enterprise.durationTime.days}}</td>
+                <td>
+                    <input type="text" name="enterpriseId" value={{enterprise.enterpriseId}} style="display:none">
+                    <select class="form-control input-sm" name="projectType">
+                         <option selected="selected"style="display:none">{{enterprise.projectType}}</option>
+                         <option>新建</option>
+                         <option>扩建</option>
+                         <option>搬迁</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control input-sm" name="projectState">
+                         <option selected="selected"style="display:none">{{enterprise.projectState}}</option>
+                         <option>看现场</option>
+                         <option>文件包发送</option>
+                         <option>报告完善</option>
+                         <option>入件</option>
+                         <option>报告修改</option>
+                         <option>取证</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control input-sm" name="intermediarySourcesCompleted">
+                         <option selected="selected"style="display:none">{{enterprise.intermediarySourcesCompleted}}</option>
+                         <option>是</option>
+                         <option>否</option>
+                    </select>
+                </td>
+                <td>
+                    <div>
+                        <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
+                    </div>
+                    <div>
+                    <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="更新"class="btn btn-block btn-lg btn-primary" />
+        </form>
+    <table class="table">
+            <tr>
+                <th>中介id</th>
+                <th>中介姓名</th>
+            </tr>
+            {% for agency in agency_list %}
+            <tr>
+                <td>{{agency.id}}</td>
+                <td>{{agency.first_name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+  </div>
+</body>
+</html>
