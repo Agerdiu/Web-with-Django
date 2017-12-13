@@ -55,7 +55,7 @@ class Enterprise(models.Model):
     accommodationNum = models.IntegerField(null=True)  # 职工住宿人数 default null
     dayWorkTime = models.IntegerField(null=True)  # 日工作时间 default null
     yearWorkTime = models.IntegerField(null=True)  # 年工作时间 default null
-    investmentTime = models.IntegerField(null=True)  # 投资时间(年) default null
+    investmentTime = models.CharField(max_length=50, null=True)  # 投资时间(年) default null
     productNames = models.CharField(max_length=255, null=True)  # 产品名称 顿号相隔 default null
     constructionScale = models.CharField(max_length=50, null=True)  # 建设规模 default null
     noiseEquipment = models.CharField(max_length=50, null=True)  # 噪声污染源设备 default null

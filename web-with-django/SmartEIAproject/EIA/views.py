@@ -314,7 +314,19 @@ def upload(request,enterpriseId):
             file_obj = request.FILES.getlist('img'+str(i))
             i = i + 1;
             for f in file_obj:
-                filename = os.path.join(filedir, f.name)
+                return HttpResponse(f.getExtension())
+                if (i == 1): name = "平面布置图"
+                if (i == 2): name = "工艺流程图"
+                if (i == 3): name = "租赁合同"
+                if (i == 4): name = "场地使用证明"
+                if (i == 5): name = "营业执照"
+                if (i == 6): name = "身份证"
+                if (i == 7): name = "厂址东"
+                if (i == 8): name = "厂址南"
+                if (i == 9): name = "厂址西"
+                if (i == 10): name = "厂址北"
+                if (i == 11): name = "环保证"
+                filename = os.path.join(filedir,name)
                 if not os.path.isdir(filedir):
                     os.makedirs(filedir)
                 fobj = open(filename, 'wb')
@@ -325,6 +337,38 @@ def upload(request,enterpriseId):
     else:
         return HttpResponse("error")
 
+def updatefiles(request,enterpriseId):
+    filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
+    if request.POST:
+        i = 1;
+        while (i <= 11):
+            file_obj = request.FILES.getlist('img' + str(i))
+            i = i + 1;
+            j = 1
+            for f in file_obj:
+                return HttpResponse(f.getExtension())
+                if (i == 1): name = "平面布置图"
+                if (i == 2): name = "工艺流程图"
+                if (i == 3): name = "租赁合同"
+                if (i == 4): name = "场地使用证明"
+                if (i == 5): name = "营业执照"
+                if (i == 6): name = "身份证"
+                if (i == 7): name = "厂址东"
+                if (i == 8): name = "厂址南"
+                if (i == 9): name = "厂址西"
+                if (i == 10): name = "厂址北"
+                if (i == 11): name = "环保证"
+                filename = os.path.join(filedir,name)
+                if not os.path.isdir(filedir):
+                    os.makedirs(filedir)
+                fobj = open(filename, 'wb')
+                for chrunk in f.chunks():
+                    fobj.write(chrunk)
+                fobj.close()
+                j = j + 1
+        return manage(request)
+    else:
+        return HttpResponse("error")
 
 def changeInfo(request):
     user=request.user
