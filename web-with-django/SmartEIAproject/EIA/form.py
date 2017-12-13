@@ -19,6 +19,18 @@ class EnterpriseUpdateForm(forms.ModelForm):
         model=Enterprise
         fields=['projectState','projectType','intermediarySourcesCompleted','agencyId']
 
+class EnterpriseUpdate_Worker(forms.ModelForm):
+    enterpriseId=forms.IntegerField()
+    class Meta:
+        model=Enterprise
+        fields=['projectState','projectType','intermediarySourcesCompleted','writerRemark']
+
+class EnterpriseUpdate_Agency(forms.ModelForm):
+    enterpriseId=forms.IntegerField()
+    class Meta:
+        model=Enterprise
+        fields=['intermediaryRemark']
+
 class UserLoginForm(forms.ModelForm):
     class Meta:
         model = User

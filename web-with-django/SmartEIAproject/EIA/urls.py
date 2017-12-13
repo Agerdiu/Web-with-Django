@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'^createGisForm/$', views.createGisForm, name='createGisForm'),
     url(r'^upload/(?P<enterpriseId>[0-9]+)/$', views.upload, name='upload'),
     url(r'^updateStateType/$', views.updateStateType, name='updateStateType'),
-    url(r'^enterprise/download/(?P<enterpriseId>[0-9]+)/$', views.download, name='download'),
+    url(r'^enterprise/download/(?P<enterpriseId>[0-9]+)/(?P<target>[a-zA-Z]+)/$', views.download, name='download'),
     url(r'^changeInfo/$', views.changeInfo, name='changeInfo')
 ]

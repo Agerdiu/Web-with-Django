@@ -59,8 +59,7 @@
   </div>
   <!--巨幕-->
 
-  <div class="container">
-    <div class="col-md-12">
+  <div class="container" style=" width:80%;">
         <h4 class="page-header">项目总览(中介)</h4>
         <form action="/updateStateType/" method="post">
                     {% csrf_token %}
@@ -75,7 +74,7 @@
                 <th>类型</th>
                 <th>状态</th>
                 <th>中介材料齐全</th>
-
+                <th>备注</th>
             </tr>
             {% for enterprise in enterprise_list %}
             <tr>
@@ -94,13 +93,22 @@
                 <td>{{enterprise.projectType}}</td>
                 <td>{{enterprise.projectState}}</td>
                 <td>{{enterprise.intermediarySourcesCompleted}}</td>
+                <td>
+                    <div>
+                        <input type="text" name="enterpriseId" value={{enterprise.enterpriseId}} style="display:none">
+                        中介备注：
+                        <input type="text" name="intermediaryRemark" value={{enterprise.intermediaryRemark}}>
+                    </div>
+                    <div>
+                        编写者备注：{{enterprise.writerRemark}}
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </table>
         <input type="submit" value="更新"class="btn btn-block btn-lg btn-primary" />
-    </div>
-  </div>
   </form>
+  </div>
 </body>
 
 

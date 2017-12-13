@@ -59,8 +59,7 @@
   </div>
   <!--巨幕-->
 
-  <div class="container">
-    <div class="col-md-12">
+  <div class="container" style=" width:80%;">
         <h4 class="page-header">项目总览(员工)</h4>
         <form action="/changeInfo/" method="post">
             {% csrf_token %}
@@ -86,6 +85,7 @@
                 <th>状态</th>
                 <th>中介材料齐全</th>
                 <th>下载</th>
+                <th>备注</th>
             </tr>
             {% for enterprise in enterprise_list %}
             <tr>
@@ -130,17 +130,25 @@
                 </td>
                 <td>
                     <div>
-                        <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
+                        <a href="{{ enterprise.get_download_url_base }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
                     </div>
                     <div>
-                    <a href="{{ enterprise.get_download_url }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
+                    <a href="{{ enterprise.get_download_url_report }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        中介备注：{{enterprise.intermediaryRemark}}
+                    </div>
+                    <div>
+                        编写者备注：
+                        <input type="text" name="writerRemark" value={{enterprise.writerRemark}}>
                     </div>
                 </td>
             </tr>
             {% endfor %}
         </table>
         <input type="submit" value="更新"class="btn btn-block btn-lg btn-primary" />
-    </div>
   </div>
   </form>
 </body>

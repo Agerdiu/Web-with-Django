@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .form import EnterpriseForm,UserLoginForm,UserRegisterForm,ProductForm,EquipmentForm,MaterialForm,EnterpriseUpdateForm,ChangeInfoForm
+from .form import EnterpriseForm,UserLoginForm,UserRegisterForm,ProductForm,EquipmentForm,MaterialForm,EnterpriseUpdateForm,EnterpriseUpdate_Worker,ChangeInfoForm,EnterpriseUpdate_Agency
 from django.contrib import auth
 from .models import User,Enterprise
 from django.utils import timezone
@@ -128,27 +128,69 @@ def agencyManage(request):
 
 def updateStateType(request):
     if request.POST:
-        IDlist= request.POST.getlist("enterpriseId")
-        Typelist = request.POST.getlist("projectType")
-        Statelist= request.POST.getlist("projectState")
-        Agencylist= request.POST.getlist("agencyId")
-        Intermediary = request.POST.getlist("intermediarySourcesCompleted")
-        i=0
-        while(i<len(IDlist)):
-            Q = QueryDict("enterpriseId="+IDlist[i]+"&agencyId="+Agencylist[i]+"&projectType="+Typelist[i]+"&projectState="+Statelist[i]+"&intermediarySourcesCompleted="+Intermediary[i])
-            print(Q)
-            i = i+1
-            f = EnterpriseUpdateForm(Q)
-            if f.is_valid():
-                enterpriseId = f.cleaned_data['enterpriseId']
-                enterprise = Enterprise.objects.get(enterpriseId=enterpriseId)
-                enterprise.projectType = f.cleaned_data['projectType']
-                enterprise.projectState = f.cleaned_data['projectState']
-                enterprise.agencyId = f.cleaned_data['agencyId']
-                enterprise.intermediarySourcesCompleted = f.cleaned_data['intermediarySourcesCompleted']
-                enterprise.save()
-            else :
-                HttpResponse("error")
+        IDlist = request.POST.getlist("enterpriseId")
+        if (request.user.position == "WK"):
+            Typelist = request.POST.getlist("projectType")
+            Statelist = request.POST.getlist("projectState")
+            WriterRemarklist = request.POST.getlist("writerRemark")
+            Intermediary = request.POST.getlist("intermediarySourcesCompleted")
+            i = 0
+            while (i < len(IDlist)):
+                Q = QueryDict("enterpriseId=" + IDlist[i] + "&writerRemark=" + WriterRemarklist[i] + "&projectType=" + Typelist[
+                    i] + "&projectState=" + Statelist[i] + "&intermediarySourcesCompleted=" + Intermediary[i])
+                print(Q)
+                i = i + 1
+                f = EnterpriseUpdate_Worker(Q)
+                if f.is_valid():
+                    enterpriseId = f.cleaned_data['enterpriseId']
+                    enterprise = Enterprise.objects.get(enterpriseId=enterpriseId)
+                    enterprise.projectType = f.cleaned_data['projectType']
+                    enterprise.projectState = f.cleaned_data['projectState']
+                    enterprise.writerRemark = f.cleaned_data['writerRemark']
+                    enterprise.intermediarySourcesCompleted = f.cleaned_data['intermediarySourcesCompleted']
+                    enterprise.save()
+                else:
+                    HttpResponse("error")
+            return redirect("/workerManage")
+        if (request.user.position == "AC"):
+            IntermediaryRemarklist = request.POST.getlist("intermediaryRemark")
+            i = 0
+            while (i < len(IDlist)):
+                Q = QueryDict("enterpriseId=" + IDlist[i] + "&intermediaryRemark=" + IntermediaryRemarklist[i])
+                print(Q)
+                i = i + 1
+                f = EnterpriseUpdate_Agency(Q)
+                if f.is_valid():
+                    enterpriseId = f.cleaned_data['enterpriseId']
+                    enterprise = Enterprise.objects.get(enterpriseId=enterpriseId)
+                    enterprise.intermediaryRemark = f.cleaned_data['intermediaryRemark']
+                    enterprise.save()
+                else:
+                    HttpResponse("error")
+            return redirect("/agencyManage")
+        if(request.user.position=="MG"):
+            Typelist = request.POST.getlist("projectType")
+            Statelist = request.POST.getlist("projectState")
+            Agencylist = request.POST.getlist("agencyId")
+            Intermediary = request.POST.getlist("intermediarySourcesCompleted")
+            i = 0
+            while (i < len(IDlist)):
+                Q = QueryDict("enterpriseId=" + IDlist[i] + "&agencyId=" + Agencylist[i] + "&projectType=" + Typelist[
+                    i] + "&projectState=" + Statelist[i] + "&intermediarySourcesCompleted=" + Intermediary[i])
+                print(Q)
+                i = i + 1
+                f = EnterpriseUpdateForm(Q)
+                if f.is_valid():
+                    enterpriseId = f.cleaned_data['enterpriseId']
+                    enterprise = Enterprise.objects.get(enterpriseId=enterpriseId)
+                    enterprise.projectType = f.cleaned_data['projectType']
+                    enterprise.projectState = f.cleaned_data['projectState']
+                    enterprise.agencyId = f.cleaned_data['agencyId']
+                    enterprise.intermediarySourcesCompleted = f.cleaned_data['intermediarySourcesCompleted']
+                    enterprise.save()
+                else:
+                    HttpResponse("error")
+                return redirect("/managerManage")
         return render(request, 'EIA/uploading.html', context={'enterpriseId': 1})
     else:
         return redirect("/workerManage")
@@ -240,10 +282,13 @@ def createGisForm(request):
         return render(request, 'EIA/login.html', context={})
 
 
-def download(request,enterpriseId):
+def download(request,enterpriseId,target):
     exceldir = os.path.join('C:\\文件库', 'Projects', 'P' + enterpriseId)
-    filename = os.path.join(exceldir, 'P' + enterpriseId + ".xlsm") # 要下载的文件路径
-    the_file_name = 'P' + enterpriseId + ".xlsm"  # 显示在弹出对话框中的默认的下载文件名
+    if(target=="base"):
+        filename = os.path.join(exceldir, "基础信息表单.rar") # 要下载的文件路径
+    if (target == "report"):
+        filename = os.path.join(exceldir, "报告文件包.rar")  # 要下载的文件路径
+    the_file_name = 'P' + enterpriseId +"_"+ target + ".rar"  # 显示在弹出对话框中的默认的下载文件名
     response = StreamingHttpResponse(readFile(filename))
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)

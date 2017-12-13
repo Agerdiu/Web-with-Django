@@ -87,8 +87,10 @@ class Enterprise(models.Model):
     def get_upload_url(self):
         return reverse('upload', kwargs={'enterpriseId': self.enterpriseId})
 
-    def get_download_url(self):
-        return reverse('download', kwargs={'enterpriseId': self.enterpriseId})
+    def get_download_url_base(self):
+        return reverse('download', kwargs={'enterpriseId': self.enterpriseId,'target':'base'})
+    def get_download_url_report(self):
+        return reverse('download', kwargs={'enterpriseId': self.enterpriseId,'target':'report'})
 
 
 class Product(models.Model):
