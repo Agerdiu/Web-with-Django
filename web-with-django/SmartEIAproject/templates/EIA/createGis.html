@@ -192,47 +192,47 @@
           </td>
           <td>项目总投资（万元）</td>
           <td>
-            <input type="text"class="form-control input-sm" name="totalInvestment" placeholder="对照营业执照">
+            <input type="text"class="form-control input-sm" name="totalInvestment" placeholder="对照营业执照，数字">
           </td>
           <td>环保投资（万元）</td>
           <td>
-            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestment" placeholder="比例约10-15%">
+            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestment" placeholder="比例约10-15%，数字">
           </td>
           <td>环保投资所占比例（%）</td>
           <td>
-            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestmentProportion" placeholder="比例约10-15%">
+            <input type="text"class="form-control input-sm" name="environmentalProtectionInvestmentProportion" placeholder="比例约10-15%，数字">
           </td>
           <td>占地面积（m2）</td>
           <td>
-            <input type="text"class="form-control input-sm" name="floorSpace" placeholder="与经营场所使用证明或房产证明一致">
+            <input type="text"class="form-control input-sm" name="floorSpace" placeholder="与经营场所使用证明或房产证明一致，数字">
           </td>
           <td>经营面积（m2）</td>
           <td>
-            <input type="text"class="form-control input-sm" name="managementSpace" placeholder="多层建筑要乘层数">
+            <input type="text"class="form-control input-sm" name="managementSpace" placeholder="多层建筑要乘层数，数字">
           </td>
           <td>职工不住宿人数(人)</td>
           <td>
-            <input type="text"class="form-control input-sm" name="nonAccommodationNum" placeholder="">
+            <input type="text"class="form-control input-sm" name="nonAccommodationNum" placeholder="数字">
           </td>
           <td>职工住宿人数(人)</td>
           <td>
-            <input type="text"class="form-control input-sm" name="accommodationNum" placeholder="">
+            <input type="text"class="form-control input-sm" name="accommodationNum" placeholder="数字">
           </td>
           <td>日工作时间</td>
           <td>
-            <input type="text"class="form-control input-sm" name="dayWorkTime" placeholder="小时数">
+            <input type="text"class="form-control input-sm" name="dayWorkTime" placeholder="小时数，数字">
           </td>
           <td>年工作时间</td>
           <td>
-            <input type="text"class="form-control input-sm" name="yearWorkTime" placeholder="天数">
+            <input type="text"class="form-control input-sm" name="yearWorkTime" placeholder="天数，数字">
           </td>
           <td>投产时间</td>
           <td>
-            <input type="text"class="form-control input-sm" name="investmentTime" placeholder="一般以接单时间往后推半年计算，多以年计算">
+            <input type="text"class="form-control input-sm" name="investmentTime" placeholder="一般以接单时间往后推半年计算，多以年计算，数字">
           </td>
           <td>产品名称</td>
           <td>
-            <input type="text"class="form-control input-sm" name="productNames" placeholder="2个产品或以上用顿号分开">
+            <input type="text"class="form-control input-sm" name="productNames" placeholder="2个产品或以上用顿号分开，汉字">
           </td>
           <td>建设规模</td>
           <td>
@@ -244,15 +244,15 @@
           </td>
           <td>噪声监测点数目</td>
           <td>
-            <input type="text"class="form-control input-sm" name="noiseMonitoringPoints" placeholder="清单中数量最多的2-3种设备">
+            <input type="text"class="form-control input-sm" name="noiseMonitoringPoints" placeholder="数字">
           </td>
           <td>包装袋年产生量</td>
           <td>
-            <input type="text"class="form-control input-sm" name="annualSolidWasteOutput" placeholder="t/a（固体废物）">
+            <input type="text"class="form-control input-sm" name="annualSolidWasteOutput" placeholder="t/a（固体废物），数字">
           </td>
           <td>电年耗量</td>
           <td>
-            <input type="text"class="form-control input-sm" name="annualPowerConsumption" placeholder="万kWh/a">
+            <input type="text"class="form-control input-sm" name="annualPowerConsumption" placeholder="万kWh/a，数字">
           </td>
           <td>纬度</td>
           <td>
@@ -264,22 +264,21 @@
           </td>
           <td>东</td>
           <td>
-            <input type="text"class="form-control input-sm" name="east" placeholder="">
+            <input type="text"class="form-control input-sm" name="east" placeholder="汉字">
           </td>
           <td>南</td>
           <td>
-            <input type="text"class="form-control input-sm" name="south" placeholder="">
+            <input type="text"class="form-control input-sm" name="south" placeholder="汉字">
           </td>
           <td>西</td>
           <td>
-            <input type="text"class="form-control input-sm" name="west" placeholder="">
+            <input type="text"class="form-control input-sm" name="west" placeholder="汉字">
           </td>
           <td>北</td>
           <td>
-            <input type="text"class="form-control input-sm" name="north" placeholder="">
+            <input type="text"class="form-control input-sm" name="north" placeholder="汉字">
           </td>
-          <td>所在区镇</td>
-          <select class="form-control input-sm" name="township">
+          <select class="form-control input-sm" name="township"style="display:none">
               <option>北滘</option>
               <option>乐从</option>
               <option>伦教</option>
@@ -291,9 +290,8 @@
               <option>均安</option>
               <option>陈村</option>
           </select>
-          <td>声环境质量标准</td>
           <td>
-              <select class="form-control input-sm" name="soundEnvironmentStandard">
+              <select class="form-control input-sm" name="soundEnvironmentStandard"style="display:none">
               <option>0类</option>
               <option>1类</option>
               <option>2类</option>
@@ -302,9 +300,8 @@
               <option>4b类</option>
           </select>
           </td>
-          <td>地下水区域</td>
           <td>
-              <select class="form-control input-sm" name="groundwaterArea">
+              <select class="form-control input-sm" name="groundwaterArea"style="display:none">
               <option>珠江三角洲佛山南海分散式开发利用区</option>
               <option>珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区</option>
               <option>北江佛山三水地下水水源涵养区</option>
@@ -318,32 +315,28 @@
               <option>珠江三角洲佛山南海应急水源区</option>
           </select>
           </td>
-          <td>大良污水厂特别选项</td>
           <td>
-              <select class="form-control input-sm" name="specialOptionforDaliang">
+              <select class="form-control input-sm" name="specialOptionforDaliang"style="display:none">
               <option>无</option>
               <option>逢沙</option>
               <option>大门</option>
           </select>
           </td>
-          <td>是否污水处理厂纳污范围</td>
           <td>
-              <select class="form-control input-sm" name="besideWaterTreatmentPlant">
+              <select class="form-control input-sm" name="besideWaterTreatmentPlant"style="display:none">
               <option>是</option>
               <option>否</option>
           </select>
           </td>
-          <td>敏感点距离</td>
           <td>
-              <select class="form-control input-sm" name="sensitivePointDistance">
+              <select class="form-control input-sm" name="sensitivePointDistance"style="display:none">
               <option>≤50</option>
               <option>≤100</option>
               <option>＞100</option>
           </select>
           </td>
-          <td>水源保护区距离</td>
           <td>
-              <select class="form-control input-sm" name="waterSourceDistance">
+              <select class="form-control input-sm" name="waterSourceDistance"style="display:none">
               <option>＜0</option>
               <option>≤500</option>
               <option>＞500</option>

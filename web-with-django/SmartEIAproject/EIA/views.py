@@ -190,7 +190,7 @@ def updateStateType(request):
                     enterprise.save()
                 else:
                     HttpResponse("error")
-                return redirect("/managerManage")
+            return redirect("/managerManage")
         return render(request, 'EIA/uploading.html', context={'enterpriseId': 1})
     else:
         return redirect("/workerManage")
@@ -321,7 +321,7 @@ def upload(request,enterpriseId):
                 for chrunk in f.chunks():
                     fobj.write(chrunk)
                 fobj.close()
-        return HttpResponse("uploadsuccess")
+        return manage(request)
     else:
         return HttpResponse("error")
 
