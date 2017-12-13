@@ -13,33 +13,69 @@
     <script src="{% static 'EIA/js/jquery.particleground.min.js' %}"></script>
   </head>
   <body>
-  <nav class="navbar navbar-default navbar-lg" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
-        <span class="sr-only">Toggle navigation</span>
-      </button>
-      <a class="navbar-brand" href="#">表单填写页</a>
-    </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-5">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">123456<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">读取本地表格</a></li>
-            <li><a href="#">读取现场考察表单</a></li>
-            <li class="divider"></li>
-            <li><a href="#">退出登录</a></li>
-            <li><a href="#">返回首页</a></li>
+ <!--导航栏-->
+  <header class="navbar navbar-static-top bs-docs-nav" id="top">
+    <div class="container">
+      <!--导航栏响应式设置-->
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+   </button>
+        <a href="/" class="navbar-brand">SMART-EIA</a>
+      </div>
+      <!--导航栏响应式设置-->
+      <nav id="bs-navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li class="active">
+                <a href="/createGisForm">表单页</a>
+            </li>
+            <li>
+                <a href="/manage">管理页</a>
+            </li>
+        </ul>
+          <ul class="nav navbar-nav navbar-right ">
+              {% if user.is_authenticated %}
+                  <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown" style="font-size: 20px;" aria-haspopup="true" aria-expanded="false">
+                          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{ request.session.userName }}
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                          <li><a href="/changeInfoPage">修改个人信息（待开发）</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/logout" class="loginOut-btn">退出登录</a></li>
+                      </ul>
+                  </div>
+              {% else %}
+                  <li><button type="button" class="btn btn-default navbar-btn login-button"  id="login_modal_btn"><a href="/login/">登录</a></button></li>
+                  <li><button type="button" class="btn btn-default navbar-btn reg-button" id="register_modal_btn"><a href="/register/">注册</a></button></li>
+              {% endif %}
           </ul>
-        </li>
-        <li><a href="#"><span class="visible-sm visible-xs">Settings<span class="fui-gear"></span></span><span class="visible-md visible-lg"><span class="fui-gear"></span></span></a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </nav>
-  <div class="row" style="height:90%">
-    <div class="col-md-3">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">智能环评管家</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="col-md-6">
+  </header>
+  <!--导航栏-->
+<!--巨幕-->
+  <div>
+    <div class="container">
+      <h1>智能环评管家</h1>
+      <p>提供环评、验收与应急预案一站式智能编写服务</p>
+    </div>
+  </div>
+  <!--巨幕-->
+
+  <div class="container">
+    <div class="col-md-12">
+        <h4 class="page-header">项目表</h4>
       <form action="/createGisForm/" method="POST">
           {% csrf_token %}
           <td colspan="2" style="text-align: center">建设单位名称</td>
@@ -231,7 +267,7 @@
             <input type="text"class="form-control input-sm" name="investmentTime" placeholder="以编制时间往后推2个月，例如，编制时间为2017年12月，投产时间填写2018年2月">
           </td>
           <td>
-            <input type="text"class="form-control input-sm" name="productNames" value=" "style="display:none">
+            <input type="text"class="form-control input-sm" name="productNames" value="无"style="display:none">
           </td>
           <td>建设规模</td>
           <td>
@@ -276,6 +312,7 @@
           <td>
             <input type="text"class="form-control input-sm" name="north" placeholder="汉字">
           </td>
+          <td>
           <select class="form-control input-sm" name="township"style="display:none">
               <option>北滘</option>
               <option>乐从</option>
@@ -288,6 +325,7 @@
               <option>均安</option>
               <option>陈村</option>
           </select>
+          </td>
           <td>
               <select class="form-control input-sm" name="soundEnvironmentStandard"style="display:none">
               <option>0类</option>
@@ -342,20 +380,7 @@
           </td>
           <input type="submit" value="提交" class="btn btn-block btn-lg btn-primary"/>
     </form>
-        <p>{{ rlt }}</p>
     </div>
-    <div class="col-md-3">
-    </div>
-  </div>
-  <div style="text-align: center">
-    <ul class="pagination center-block">
-      <li class="previous"><a href="#fakelink" class="fui-arrow-left"></a></li>
-      <li class="active"><a href="#fakelink">1</a></li>
-      <li><a href="#fakelink">2</a></li>
-      <li><a href="#fakelink">3</a></li>
-      <li><a href="#fakelink">4</a></li>
-      <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
-    </ul>
   </div>
   </body>
 </html>

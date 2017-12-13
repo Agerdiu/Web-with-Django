@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <!--导航栏-->
+   <!--导航栏-->
   <header class="navbar navbar-static-top bs-docs-nav" id="top">
     <div class="container">
       <!--导航栏响应式设置-->
@@ -25,23 +25,41 @@
      <span class="icon-bar"></span>
      <span class="icon-bar"></span>
    </button>
-        <a href="##" class="navbar-brand">SMART-EIA</a>
+        <a href="/" class="navbar-brand">SMART-EIA</a>
       </div>
       <!--导航栏响应式设置-->
       <nav id="bs-navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li>
-            <a href="##">首页</a>
-          </li>
-          <li class="active">
-            <a href="##">表单页</a>
-          </li>
-          <li>
-            <a href="##">流程指南</a>
-          </li>
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li class="active">
+                <a href="/createGisForm">表单页</a>
+            </li>
+            <li>
+                <a href="/manage">管理页</a>
+            </li>
         </ul>
+          <ul class="nav navbar-nav navbar-right ">
+              {% if user.is_authenticated %}
+                  <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown" style="font-size: 20px;" aria-haspopup="true" aria-expanded="false">
+                          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{ request.session.userName }}
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                          <li><a href="/changeInfoPage">修改个人信息（待开发）</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/logout" class="loginOut-btn">退出登录</a></li>
+                      </ul>
+                  </div>
+              {% else %}
+                  <li><button type="button" class="btn btn-default navbar-btn login-button"  id="login_modal_btn"><a href="/login/">登录</a></button></li>
+                  <li><button type="button" class="btn btn-default navbar-btn reg-button" id="register_modal_btn"><a href="/register/">注册</a></button></li>
+              {% endif %}
+          </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="##" target="_blank">智能环评管家</a></li>
+            <li><a href="/">智能环评管家</a></li>
         </ul>
       </nav>
     </div>
