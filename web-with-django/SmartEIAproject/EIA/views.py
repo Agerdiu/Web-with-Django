@@ -12,11 +12,7 @@ from django.forms import formset_factory
 from django.urls import reverse
 
 def index(request):
-    user = request.user
-    if user.is_authenticated():
-        return render(request, 'EIA/index.html', context={})
-    else:
-        return render(request, 'EIA/login.html', context={})
+    return redirect("/manage")
 
 
 def register(request):
@@ -66,7 +62,7 @@ def login(request):
                 if(user.is_superuser==1):
                     return redirect("/workerManage")
                 else:
-                    return redirect("/gis")
+                    return redirect("/index")
             else:
                 return render(request, 'EIA/login.html', context={'error': '账户或密码错误，不存在，请重新输入'})
         else:
@@ -79,8 +75,6 @@ def logout(request):
     auth.logout(request)
     return render(request, 'EIA/login.html', context={})
 
-def gis(request):
-    return render(request, 'EIA/index.html', context={})
 
 
 def workerManage(request):
@@ -254,11 +248,17 @@ def equipments(request,enterpriseId):
 
 def manage(request):
     user = request.user
-    if(user.position == "AC"):
-        return agencyManage(request)
-    if (user.position == "WK"):
-        return workerManage(request)
-    return managerManage(request)
+    if user.is_authenticated():
+        if user.position == 'MG':
+            return redirect("/managerManage")
+        elif user.position == 'WK':
+            return redirect("/workerManage")
+        elif user.position == 'WK':
+            return redirect("/agencyManage")
+        else:
+            return render(request, 'EIA/index.html', context={})
+    else:
+        return render(request, 'EIA/login.html', context={})
 
 
 def createGisForm(request):
