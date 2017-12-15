@@ -37,7 +37,7 @@
                 <a href="/">首页</a>
             </li>
             <li class="active">
-                <a href="/createGisForm">表单页</a>
+                <a href="/createGisForm">创建项目</a>
             </li>
             <li>
                 <a href="/manage">管理页</a>
@@ -92,7 +92,6 @@
                 <th>类型</th>
                 <th>状态</th>
                 <th>中介材料齐全</th>
-                <th>下载</th>
                 <th>备注</th>
             </tr>
             {% for enterprise in enterprise_list %}
@@ -134,14 +133,6 @@
                 </td>
                 <td>
                     <div>
-                        <a href="{{ enterprise.get_download_url_base }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
-                    </div>
-                    <div>
-                    <a href="{{ enterprise.get_download_url_report }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
-                    </div>
-                </td>
-                <td>
-                    <div>
                         中介备注：{{enterprise.intermediaryRemark}}
                     </div>
                     <div>
@@ -163,6 +154,43 @@
                 <td>{{agency.id}}</td>
                 <td>{{agency.first_name}}</td>
             </tr>
+            {% endfor %}
+        </table>
+  <table class="table">
+            <tr>
+                <th>项目id</th>
+                <th>项目名称</th>
+                <th>下载</th>
+                <th>更新文件（rar）</th>
+                <th>确认更新</th>
+            </tr>
+            {% for enterprise in enterprise_list %}
+             <form action="/updatefiles/{{enterprise.enterpriseId}}/" method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+            <tr>
+                <td>{{enterprise.enterpriseId}}</td>
+                <td>{{enterprise.enterpriseName}}</td>
+                <td>
+                    <div>
+                        <a href="{{ enterprise.get_download_url_base }}"class="btn btn-block btn-xs btn-primary">基础信息表单</a>
+                    </div>
+                    <div>
+                    <a href="{{ enterprise.get_download_url_report }}"class="btn btn-block btn-xs btn-primary">报告文件包</a>
+                    </div>
+                </td>
+                <td width="30%">
+                    <div>
+                        <input type="file" name="base"accept=".rar"/>更新信息表单<br />
+                    </div>
+                    <div>
+                        <input type="file" name="report"accept=".rar"/>更新报告包<br />
+                    </div>
+                </td>
+                <td>
+                    <input type="submit" value="确认更新文件"class="btn btn-block btn-lg btn-primary" />
+                </td>
+            </tr>
+                </form>
             {% endfor %}
         </table>
   </div>

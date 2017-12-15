@@ -7,16 +7,12 @@ from django.utils import timezone
 import os
 from django.http import StreamingHttpResponse
 from django.http import QueryDict
-from .excel_write import enterpriseExcelWrite,equipmentExcelWrite,productExcelWrite,materialExcelWrite,Excelcreate
+from .excel_write import enterpriseExcelWrite,equipmentExcelWrite,productExcelWrite,materialExcelWrite,Excelcreate,getfileextension
 from django.forms import formset_factory
 from django.urls import reverse
 
 def index(request):
-    user = request.user
-    if user.is_authenticated():
-        return render(request, 'EIA/index.html', context={})
-    else:
-        return render(request, 'EIA/login.html', context={})
+    return redirect("/manage")
 
 
 def register(request):
@@ -66,7 +62,7 @@ def login(request):
                 if(user.is_superuser==1):
                     return redirect("/workerManage")
                 else:
-                    return redirect("/gis")
+                    return redirect("/index")
             else:
                 return render(request, 'EIA/login.html', context={'error': '账户或密码错误，不存在，请重新输入'})
         else:
@@ -79,8 +75,6 @@ def logout(request):
     auth.logout(request)
     return render(request, 'EIA/login.html', context={})
 
-def gis(request):
-    return render(request, 'EIA/index.html', context={})
 
 
 def workerManage(request):
@@ -254,11 +248,17 @@ def equipments(request,enterpriseId):
 
 def manage(request):
     user = request.user
-    if(user.position == "AC"):
-        return agencyManage(request)
-    if (user.position == "WK"):
-        return workerManage(request)
-    return managerManage(request)
+    if user.is_authenticated():
+        if user.position == 'MG':
+            return redirect("/managerManage")
+        elif user.position == 'WK':
+            return redirect("/workerManage")
+        elif user.position == 'WK':
+            return redirect("/agencyManage")
+        else:
+            return render(request, 'EIA/index.html', context={})
+    else:
+        return render(request, 'EIA/login.html', context={})
 
 
 def createGisForm(request):
@@ -309,55 +309,22 @@ def readFile(filename,chunk_size=512):
 def upload(request,enterpriseId):
     filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
     if request.POST:
-        i = 1;
+        i = 1
         while(i<=11):
             file_obj = request.FILES.getlist('img'+str(i))
-            i = i + 1;
-            for f in file_obj:
-                return HttpResponse(f.getExtension())
-                if (i == 1): name = "平面布置图"
-                if (i == 2): name = "工艺流程图"
-                if (i == 3): name = "租赁合同"
-                if (i == 4): name = "场地使用证明"
-                if (i == 5): name = "营业执照"
-                if (i == 6): name = "身份证"
-                if (i == 7): name = "厂址东"
-                if (i == 8): name = "厂址南"
-                if (i == 9): name = "厂址西"
-                if (i == 10): name = "厂址北"
-                if (i == 11): name = "环保证"
-                filename = os.path.join(filedir,name)
-                if not os.path.isdir(filedir):
-                    os.makedirs(filedir)
-                fobj = open(filename, 'wb')
-                for chrunk in f.chunks():
-                    fobj.write(chrunk)
-                fobj.close()
-        return manage(request)
-    else:
-        return HttpResponse("error")
-
-def updatefiles(request,enterpriseId):
-    filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
-    if request.POST:
-        i = 1;
-        while (i <= 11):
-            file_obj = request.FILES.getlist('img' + str(i))
-            i = i + 1;
             j = 1
             for f in file_obj:
-                return HttpResponse(f.getExtension())
-                if (i == 1): name = "平面布置图"
-                if (i == 2): name = "工艺流程图"
-                if (i == 3): name = "租赁合同"
-                if (i == 4): name = "场地使用证明"
-                if (i == 5): name = "营业执照"
-                if (i == 6): name = "身份证"
-                if (i == 7): name = "厂址东"
-                if (i == 8): name = "厂址南"
-                if (i == 9): name = "厂址西"
-                if (i == 10): name = "厂址北"
-                if (i == 11): name = "环保证"
+                if (i == 1): name = "平面布置图"+ getfileextension(f.name)
+                if (i == 2): name = "工艺流程图"+ getfileextension(f.name)
+                if (i == 3): name = "租赁合同" + str(j) + getfileextension(f.name)
+                if (i == 4): name = "场地使用证明" + str(j) + getfileextension(f.name)
+                if (i == 5): name = "营业执照" + getfileextension(f.name)
+                if (i == 6): name = "身份证" + getfileextension(f.name)
+                if (i == 7): name = "厂址东" + getfileextension(f.name)
+                if (i == 8): name = "厂址南" + getfileextension(f.name)
+                if (i == 9): name = "厂址西" + getfileextension(f.name)
+                if (i == 10): name = "厂址北" + getfileextension(f.name)
+                if (i == 11): name = "环保证复印件" + getfileextension(f.name)
                 filename = os.path.join(filedir,name)
                 if not os.path.isdir(filedir):
                     os.makedirs(filedir)
@@ -366,9 +333,33 @@ def updatefiles(request,enterpriseId):
                     fobj.write(chrunk)
                 fobj.close()
                 j = j + 1
+            i = i + 1
         return manage(request)
     else:
         return HttpResponse("error")
+
+def updatefiles(request,enterpriseId):
+    if request.POST:
+        filedir = os.path.join('C:\\文件库', 'Projects', 'P' + str(enterpriseId))
+        i = 1;
+        while (i <= 2):
+            if (i == 1):
+                file_obj = request.FILES.getlist('base')
+            if (i == 2):
+                file_obj = request.FILES.getlist('report')
+            for f in file_obj:
+                if (i == 1): name = "基础信息表单.rar"
+                if (i == 2): name = "报告文件包.rar"
+                filename = os.path.join(filedir, name)
+                if not os.path.isdir(filedir):
+                    os.makedirs(filedir)
+                fobj = open(filename, 'wb')
+                for chrunk in f.chunks():
+                    fobj.write(chrunk)
+                fobj.close()
+                i = i + 1;
+        return manage(request)
+
 
 def changeInfo(request):
     user=request.user

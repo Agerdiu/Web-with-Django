@@ -141,3 +141,9 @@ def Excelcreate(ID):
         wb.save(excelname)
         wb.close()
         app.quit()
+def getfileextension(s):
+    i = len(s) - 1
+    while(s[i]!='.'):
+        i = i - 1;
+    i = len(s) - i
+    return s[-1*i:]
