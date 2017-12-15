@@ -357,7 +357,7 @@ def updatefiles(request,enterpriseId):
                 for chrunk in f.chunks():
                     fobj.write(chrunk)
                 fobj.close()
-                i = i + 1;
+            i = i + 1;
         return manage(request)
 
 
