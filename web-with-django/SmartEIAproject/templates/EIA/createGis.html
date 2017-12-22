@@ -76,6 +76,7 @@
   <div class="container">
     <div class="col-md-12">
         <h4 class="page-header">项目表</h4>
+        {{ error }}
       <form action="/createGisForm/" method="POST">
           {% csrf_token %}
           <td colspan="2" style="text-align: center">建设单位名称</td>

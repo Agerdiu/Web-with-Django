@@ -275,7 +275,7 @@ def createGisForm(request):
                 return redirect(reverse("products",kwargs={'enterpriseId':enterprise.enterpriseId}))
             else:
                 print(f.errors)
-                return render(request, 'EIA/createGis.html', context={'error': '输入不合法错误'})
+                return render(request, 'EIA/createGis.html', context={'error': f.errors})
         else:
             return render(request, 'EIA/createGis.html', context={})
     else:
